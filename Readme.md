@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Dmitry Korovin](https://up.htmlacademy.ru/react/7/user/974243).
-* Наставник: `Неизвестно`.
+* Студент: [Dmitry Korovin](https://htmlacademy.ru/profile/dimdrim).
+* Наставник: [Виталий Яковенко](https://htmlacademy.ru/profile/id376639).
 
 ---
 
