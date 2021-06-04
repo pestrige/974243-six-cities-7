@@ -1,14 +1,38 @@
 import React from 'react';
-import Main from '../main/main';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
-const cards = new Array(5).fill('').map((card) => card = {id: Math.random()}); // временная заглушка
+import Main from '../pages/main/main';
+import Login from '../pages/login/login';
+import Favorites from '../pages/favorites/favorites';
+import Offer from '../pages/offer/offer';
+import NotFound from '../pages/not-found/not-found';
 
-function App() {
+const CARDS_COUNT = 5;
+const cards = new Array(CARDS_COUNT).fill('').map((card) => card = { id: Math.random() }); // временная заглушка
+
+export default function App() {
   return (
-    <Main
-      cards = {cards}
-    />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main
+            cards={cards}
+          />
+        </Route>
+        <Route exact path={AppRoute.LOGIN}>
+          <Login isLogin={false} />
+        </Route>
+        <Route exact path={AppRoute.FAVORITES}>
+          <Favorites />
+        </Route>
+        <Route exact path={`${AppRoute.OFFER}/:id`}>
+          <Offer />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
-
-export default App;
