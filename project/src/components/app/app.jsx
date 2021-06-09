@@ -12,6 +12,7 @@ const CARDS_COUNT = 5;
 const cards = new Array(CARDS_COUNT).fill('').map((card) => card = { id: Math.random() }); // временная заглушка
 
 export default function App() {
+
   return (
     <BrowserRouter>
       <Switch>
