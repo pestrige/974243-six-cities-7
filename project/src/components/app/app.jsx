@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import offersProp from '../offers/offers.prop';
 
 import Main from '../pages/main/main';
 import Login from '../pages/login/login';
@@ -8,17 +9,16 @@ import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
 
-const CARDS_COUNT = 5;
-const cards = new Array(CARDS_COUNT).fill('').map((card) => card = { id: Math.random() }); // временная заглушка
-
-export default function App() {
+export default function App({offers}) {
+  // eslint-disable-next-line no-console
+  console.log(offers);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main
-            cards={cards}
+            offers={offers}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -28,7 +28,7 @@ export default function App() {
           <Favorites />
         </Route>
         <Route exact path={`${AppRoute.OFFER}/:id`}>
-          <Offer />
+          <Offer offers={offers} />
         </Route>
         <Route>
           <NotFound />
@@ -37,3 +37,7 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+App.propTypes = {
+  offers: offersProp,
+};

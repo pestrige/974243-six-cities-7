@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
-import Card from '../../card/card';
+import Offers from '../../offers/offers';
+//import Card from '../../card/card';
 
-export default function Main({cards}) {
+import offersProp from '../../offers/offers.prop';
+
+export default function Main({offers}) {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -52,7 +54,7 @@ export default function Main({cards}) {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">312 places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
                   <svg className="places__sorting-arrow" width={7} height={4}>
@@ -67,9 +69,7 @@ export default function Main({cards}) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {
-                  cards.map((card) => <Card key = {card.id} card = {card} />)
-                }
+                <Offers offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
@@ -83,8 +83,5 @@ export default function Main({cards}) {
 }
 
 Main.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    })).isRequired,
+  offers: offersProp,
 };

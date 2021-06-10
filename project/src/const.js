@@ -4,3 +4,10 @@ export const AppRoute = {
   FAVORITES: '/favorites',
   OFFER: '/offer',
 };
+
+export const OfferType = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
