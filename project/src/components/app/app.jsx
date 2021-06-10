@@ -10,9 +10,6 @@ import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
 
 export default function App({offers}) {
-  // eslint-disable-next-line no-console
-  console.log(offers);
-
   return (
     <BrowserRouter>
       <Switch>

@@ -26,3 +26,24 @@ const adaptOfferToClient = (offer) => {
 export const adaptOffersToClient = (data) => Array.isArray(data)
   ? data.map((offer) => adaptOfferToClient(offer))
   : adaptOfferToClient(data);
+
+const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      id: review.user.id,
+      isPro: review.user.is_pro,
+      name: review.user.name,
+      avatarUrl: review.user.avatar_url,
+    },
+    date: new Date(review.date),
+  };
+
+  return adaptedReview;
+};
+
+export const adaptReviewsToClient = (data) => Array.isArray(data)
+  ? data.map((review) => adaptReviewToClient(review))
+  : adaptReviewToClient(data);
+
+
