@@ -1,15 +1,21 @@
 import React from 'react';
 import Header from '../../header/header';
-import Good from './good';
 import Card from '../../card/card';
+import Good from './good';
+import Review from './review';
 import { useParams } from 'react-router-dom';
 import { getPersentage } from '../../../utils/common';
 import { OfferType } from '../../../const';
 import offersProp from '../../offers/offers.prop';
 
+import { adaptReviewsToClient } from '../../../utils/adapters';
+import { REVIEWS } from '../../../mocks/reviews';
+
 const CLOSEST_OFFERS_COUNT = 3;
 
 export default function Offer({offers}) {
+  const reviews = adaptReviewsToClient(REVIEWS);
+
   const {id} = useParams();
   const currentOffers = offers.slice();
   const currentIndex = currentOffers.findIndex((offer) => offer.id === Number(id));
@@ -133,31 +139,11 @@ export default function Offer({offers}) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                        building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
+                  {
+                    reviews.map((review) => <Review key={review.id} review={review} />)
+                  }
                 </ul>
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
