@@ -5,7 +5,7 @@ import Good from './good';
 import Review from './review';
 import { useParams } from 'react-router-dom';
 import { getPersentage } from '../../../utils/common';
-import { OfferType } from '../../../const';
+import { OfferType, CardType } from '../../../const';
 import offersProp from '../../offers/offers.prop';
 
 import { adaptReviewsToClient } from '../../../utils/adapters';
@@ -201,7 +201,7 @@ export default function Offer({offers}) {
                 <Card
                   key={offer.id}
                   offer={offer}
-                  isClosest
+                  cardType={CardType.CLOSEST}
                 />
               ))}
             </div>

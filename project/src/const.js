@@ -11,3 +11,9 @@ export const OfferType = {
   house: 'House',
   hotel: 'Hotel',
 };
+
+export const CardType = {
+  DEFAULT: 'cities',
+  CLOSEST: 'near-places',
+  FAVORITE: 'favorites',
+};

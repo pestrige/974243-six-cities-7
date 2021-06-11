@@ -22,7 +22,7 @@ export default function App({offers}) {
           <Login isLogin={false} />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites />
+          <Favorites offers={offers} />
         </Route>
         <Route exact path={`${AppRoute.OFFER}/:id`}>
           <Offer offers={offers} />

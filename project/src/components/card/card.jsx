@@ -1,11 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, OfferType } from '../../const';
+import { AppRoute, OfferType, CardType } from '../../const';
 import { getPersentage } from '../../utils/common';
 import offerProp from './card.prop';
 import PropTypes from 'prop-types';
 
-export default function Card({offer, isClosest = false}) {
+const CardImageSize = {
+  DEFAULT: {
+    width: 260,
+    height: 200,
+  },
+  FAVORITE: {
+    width: 150,
+    height: 110,
+  },
+};
+
+export default function Card({
+  offer,
+  cardType = CardType.DEFAULT,
+}) {
   const {
     id,
     previewImage,
@@ -16,23 +30,27 @@ export default function Card({offer, isClosest = false}) {
     title,
     type,
   } = offer;
-  const cardClass = isClosest ? 'near-places__card' : 'cities__place-card';
-  const wrapperClass = isClosest ? 'near-places__image-wrapper' : 'cities__image-wrapper';
 
   return (
-    <article className={`${cardClass} place-card`}>
+    <article className={`${cardType}__card place-card`}>
       {
         isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`${wrapperClass} place-card__image-wrapper`}>
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={cardType === CardType.FAVORITE ? CardImageSize.FAVORITE.width : CardImageSize.DEFAULT.width}
+            height={cardType === CardType.FAVORITE ? CardImageSize.FAVORITE.height : CardImageSize.DEFAULT.height}
+            alt="Place"
+          />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${cardType}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -62,5 +80,5 @@ export default function Card({offer, isClosest = false}) {
 
 Card.propTypes = {
   offer: offerProp,
-  isClosest: PropTypes.bool,
+  cardType: PropTypes.string,
 };
