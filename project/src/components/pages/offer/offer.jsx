@@ -127,7 +127,7 @@ export default function Offer({offers}) {
                     reviews.map((review) => <Review key={review.id} review={review} />)
                   }
                 </ul>
-                <Form />
+                <Form key={id}/>
               </section>
             </div>
           </div>
