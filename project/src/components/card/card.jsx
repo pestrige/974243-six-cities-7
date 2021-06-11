@@ -19,7 +19,7 @@ const CardImageSize = {
 export default function Card({
   offer,
   cardType = CardType.DEFAULT,
-}) {
+  handleMouseEnter = null }) {
   const {
     id,
     previewImage,
@@ -32,7 +32,14 @@ export default function Card({
   } = offer;
 
   return (
-    <article className={`${cardType}__card place-card`}>
+    <article
+      className={`${cardType}__card place-card`}
+      onMouseEnter={
+        cardType === CardType.DEFAULT
+          ? () => handleMouseEnter(offer)
+          : null
+      }
+    >
       {
         isPremium &&
         <div className="place-card__mark">
@@ -81,4 +88,5 @@ export default function Card({
 Card.propTypes = {
   offer: offerProp,
   cardType: PropTypes.string,
+  handleMouseEnter: PropTypes.func,
 };
