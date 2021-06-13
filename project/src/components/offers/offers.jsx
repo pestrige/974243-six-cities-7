@@ -5,11 +5,6 @@ import offersProp from './offers.prop';
 
 export default function Offers({offers}) {
   const [activeOffer, setActiveOffer] = useState(null);
-  const handleMouseEnter = (offer) => {
-    setActiveOffer(offer);
-  };
-  // eslint-disable-next-line no-console
-  console.log(activeOffer);
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -18,7 +13,8 @@ export default function Offers({offers}) {
           <Card
             key = {card.id}
             offer = {card}
-            handleMouseEnter={handleMouseEnter}
+            handleMouseEnter={setActiveOffer}
+            isActive={card === activeOffer}
           />))
       }
     </div>

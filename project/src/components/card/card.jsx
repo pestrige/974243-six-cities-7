@@ -19,7 +19,8 @@ const CardImageSize = {
 export default function Card({
   offer,
   cardType = CardType.DEFAULT,
-  handleMouseEnter = null }) {
+  handleMouseEnter = null,
+  isActive = false }) {
   const {
     id,
     previewImage,
@@ -33,7 +34,7 @@ export default function Card({
 
   return (
     <article
-      className={`${cardType}__card place-card`}
+      className={`${cardType}__card place-card ${isActive ? 'place-card--active' : ''}`}
       onMouseEnter={
         cardType === CardType.DEFAULT
           ? () => handleMouseEnter(offer)
@@ -89,4 +90,5 @@ Card.propTypes = {
   offer: offerProp,
   cardType: PropTypes.string,
   handleMouseEnter: PropTypes.func,
+  isActive: PropTypes.bool,
 };
