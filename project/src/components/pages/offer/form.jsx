@@ -18,7 +18,7 @@ export default function Form() {
     [InputName.COMMENT]: '',
   });
 
-  const handleFormChange = (evt) => {
+  const handleChange = (evt) => {
     const {name, value} = evt.target;
     setForm({
       ...form,
@@ -27,7 +27,7 @@ export default function Form() {
   };
 
   return (
-    <form onChange={handleFormChange} className="reviews__form form" action="#" method="post">
+    <form onChange={handleChange} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
