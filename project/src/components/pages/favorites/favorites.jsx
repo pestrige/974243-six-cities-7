@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../header/header';
 import City from './city';
 import Empty from './empty';
 import offersProp from '../../offers/offers.prop';
+import { AppRoute } from '../../../const';
 
 const createOffersMap = (offers) => {
   const offersMap = new Map();
@@ -48,9 +50,9 @@ export default function Favorites({ offers = [] }) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link to={AppRoute.ROOT} className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-        </a>
+        </Link>
       </footer>
     </div>
   );
