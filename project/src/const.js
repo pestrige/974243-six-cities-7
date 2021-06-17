@@ -17,3 +17,26 @@ export const CardType = {
   CLOSEST: 'near-places',
   FAVORITE: 'favorites',
 };
+
+export const Cities = {
+  AMSTERDAM: {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.38333,
+      longitude: 4.9,
+      zoom: 12,
+    },
+  },
+};
+
+export const MapClass = {
+  DEFAULT: 'cities',
+  OFFER: 'property',
+};
+
+export const Marker = {
+  SIZE: [27, 39],
+  ANCHOR: [13, 39],
+  URL: './img/pin.svg',
+  ACTIVE_URL: './img/pin-active.svg',
+};

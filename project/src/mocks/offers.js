@@ -1,9 +1,9 @@
 const OFFER_ONE = {
   'city': {
-    'name': 'Dusseldorf',
+    'name': 'Amsterdam',
     'location': {
-      'latitude': 51.225402,
-      'longitude': 6.776314,
+      'latitude': 52.38333,
+      'longitude': 4.9,
       'zoom': 13,
     },
   },
@@ -49,8 +49,8 @@ const OFFER_ONE = {
   },
   'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
   'location': {
-    'latitude': 51.237402,
-    'longitude': 6.779314,
+    'latitude': 52.3909553943508,
+    'longitude': 4.85309666406198,
     'zoom': 16,
   },
   'id': 2,
@@ -58,10 +58,10 @@ const OFFER_ONE = {
 
 const OFFER_TWO = {
   'city': {
-    'name': 'Brussels',
+    'name': 'Amsterdam',
     'location': {
-      'latitude': 50.846557,
-      'longitude': 4.351697,
+      'latitude': 52.38333,
+      'longitude': 4.9,
       'zoom': 13,
     },
   },
@@ -109,8 +109,8 @@ const OFFER_TWO = {
   },
   'description': 'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
   'location': {
-    'latitude': 50.849557,
-    'longitude': 4.374696999999999,
+    'latitude': 52.369553943508,
+    'longitude': 4.85309666406198,
     'zoom': 16,
   },
   'id': 1,
@@ -118,10 +118,10 @@ const OFFER_TWO = {
 
 const OFFER_THREE = {
   'city': {
-    'name': 'Cologne',
+    'name': 'Amsterdam',
     'location': {
-      'latitude': 50.938361,
-      'longitude': 6.959974,
+      'latitude': 52.38333,
+      'longitude': 4.9,
       'zoom': 13,
     },
   },
@@ -169,8 +169,8 @@ const OFFER_THREE = {
   },
   'description': 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
   'location': {
-    'latitude': 50.916361,
-    'longitude': 6.944974,
+    'latitude': 52.3909553943508,
+    'longitude': 4.929309666406198,
     'zoom': 16,
   },
   'id': 3,
@@ -178,10 +178,10 @@ const OFFER_THREE = {
 
 const OFFER_FOUR = {
   'city': {
-    'name': 'Hamburg',
+    'name': 'Amsterdam',
     'location': {
-      'latitude': 53.550341,
-      'longitude': 10.000654,
+      'latitude': 52.38333,
+      'longitude': 4.9,
       'zoom': 13,
     },
   },
@@ -229,8 +229,8 @@ const OFFER_FOUR = {
   },
   'description': 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
   'location': {
-    'latitude': 53.573341000000006,
-    'longitude': 9.994654,
+    'latitude': 52.3809553943508,
+    'longitude': 4.939309666406198,
     'zoom': 16,
   },
   'id': 4,
@@ -238,10 +238,10 @@ const OFFER_FOUR = {
 
 const OFFER_FIVE = {
   'city': {
-    'name': 'Dusseldorf',
+    'name': 'Amsterdam',
     'location': {
-      'latitude': 51.225402,
-      'longitude': 6.776314,
+      'latitude': 52.38333,
+      'longitude': 4.9,
       'zoom': 13,
     },
   },
@@ -288,8 +288,8 @@ const OFFER_FIVE = {
   },
   'description': 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
   'location': {
-    'latitude': 51.248402000000006,
-    'longitude': 6.763314,
+    'latitude': 52.379553943508,
+    'longitude': 4.901309666406198,
     'zoom': 16,
   },
   'id': 6,
