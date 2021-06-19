@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from '../card/card';
-
+import PropTypes from 'prop-types';
 import offersProp from './offers.prop';
+import offerProp from '../card/card.prop';
 
-export default function Offers({offers}) {
-  const [activeOffer, setActiveOffer] = useState(null);
+export default function Offers({offers, activeOffer, handleMouseEnter}) {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -13,8 +13,8 @@ export default function Offers({offers}) {
           <Card
             key = {card.id}
             offer = {card}
-            handleMouseEnter={setActiveOffer}
-            isActive={card === activeOffer}
+            handleMouseEnter={handleMouseEnter}
+            isActive={card.id === activeOffer.id}
           />))
       }
     </div>
@@ -23,4 +23,9 @@ export default function Offers({offers}) {
 
 Offers.propTypes = {
   offers: offersProp,
+  activeOffer: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    offerProp,
+  ]),
+  handleMouseEnter: PropTypes.func,
 };

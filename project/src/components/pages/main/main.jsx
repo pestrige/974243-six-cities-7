@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../header/header';
 import Offers from '../../offers/offers';
+import Map from '../../map/map';
 import offersProp from '../../offers/offers.prop';
+import { Cities } from '../../../const';
 
 export default function Main({offers}) {
+  const [activeOffer, setActiveOffer] = useState({});
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -66,10 +70,18 @@ export default function Main({offers}) {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers}/>
+              <Offers
+                offers={offers}
+                activeOffer={activeOffer}
+                handleMouseEnter={setActiveOffer}
+              />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map
+                offers={offers}
+                activeOffer={activeOffer}
+                currentCity={Cities.AMSTERDAM}
+              />
             </div>
           </div>
         </div>

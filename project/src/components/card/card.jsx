@@ -40,6 +40,11 @@ export default function Card({
           ? () => handleMouseEnter(offer)
           : null
       }
+      onMouseLeave={
+        cardType === CardType.DEFAULT
+          ? () => handleMouseEnter({})
+          : null
+      }
     >
       {
         isPremium &&
