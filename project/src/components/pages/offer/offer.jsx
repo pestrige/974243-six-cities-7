@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from '../../header/header';
 import Card from '../../card/card';
+import Map from '../../map/map';
 import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
 import { useParams } from 'react-router-dom';
 import { getPersentage } from '../../../utils/common';
-import { OfferType, CardType } from '../../../const';
+import { OfferType, CardType, MapClass, Cities } from '../../../const';
 import offersProp from '../../offers/offers.prop';
 
 import { adaptReviewsToClient } from '../../../utils/adapters';
@@ -122,7 +123,11 @@ export default function Offer({offers}) {
               <Reviews reviews={reviews} id={id}/>
             </div>
           </div>
-          <section className="property__map map" />
+          <Map
+            offers={closestOffers}
+            currentCity={Cities.AMSTERDAM}
+            type={MapClass.OFFER}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
