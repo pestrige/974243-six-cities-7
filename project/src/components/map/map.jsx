@@ -10,13 +10,10 @@ export default function Map({offers, activeOffer = {}, currentCity, type = MapCl
   useMap(mapRef, offers, activeOffer, currentCity);
 
   return (
-    <section className={`${type}__map map`}>
-      <div
-        id="map"
-        ref={mapRef}
-        style={{height: '100%'}}
-      />
-    </section>
+    <section
+      className={`${type}__map map`}
+      ref={mapRef}
+    />
   );
 }
 

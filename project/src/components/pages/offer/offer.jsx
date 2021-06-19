@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../header/header';
-import Card from '../../card/card';
+import Offers from '../../offers/offers';
 import Map from '../../map/map';
 import Gallery from './gallery';
 import Good from './good';
@@ -132,15 +132,7 @@ export default function Offer({offers}) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {closestOffers.map((offer) =>(
-                <Card
-                  key={offer.id}
-                  offer={offer}
-                  cardType={CardType.CLOSEST}
-                />
-              ))}
-            </div>
+            <Offers offers={closestOffers} type={CardType.CLOSEST} />
           </section>
         </div>
       </main>
