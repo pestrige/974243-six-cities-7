@@ -3,8 +3,7 @@ import Header from '../../header/header';
 import Card from '../../card/card';
 import Gallery from './gallery';
 import Good from './good';
-import Review from './review';
-import Form from './form';
+import Reviews from './reviews';
 import { useParams } from 'react-router-dom';
 import { getPersentage } from '../../../utils/common';
 import { OfferType, CardType } from '../../../const';
@@ -120,15 +119,7 @@ export default function Offer({offers}) {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {
-                    reviews.map((review) => <Review key={review.id} review={review} />)
-                  }
-                </ul>
-                <Form key={id}/>
-              </section>
+              <Reviews reviews={reviews} id={id}/>
             </div>
           </div>
           <section className="property__map map" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import reviewProp from './review.prop';
 import { getPersentage, formatDate } from '../../../utils/common';
 
 export default function Review({review}) {
@@ -40,16 +40,5 @@ export default function Review({review}) {
 }
 
 Review.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.instanceOf(Date),
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      isPro: PropTypes.bool.isRequired,
-      name: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  review: reviewProp,
 };
