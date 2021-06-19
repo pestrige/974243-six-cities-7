@@ -41,7 +41,9 @@ export function useMap(container, points, activePoint, city) {
 
       setMap(leafletMap);
     }
+  }, [container, city, points, map]);
 
+  useEffect(() => {
     // рисуем маркеры для активного города
     if (map) {
       points
@@ -57,7 +59,7 @@ export function useMap(container, points, activePoint, city) {
             .addTo(map);
         });
     }
-  }, [container, city, points, map, activePointId]);
+  }, [points, city, activePointId, map]);
 
   return map;
 }
