@@ -5,13 +5,15 @@ import offerProp from '../card/card.prop';
 import { useMap } from '../../hooks/useMap';
 import { MapClass } from '../../const';
 
-export default function Map({offers, activeOffer, currentCity, type = MapClass.DEFAULT}) {
+export default function Map({offers, activeOffer = {}, currentCity, type = MapClass.DEFAULT}) {
   const mapRef = useRef(null);
   useMap(mapRef, offers, activeOffer, currentCity);
 
   return (
-    <section ref={mapRef} className={`${type}__map map`}>
-    </section>
+    <section
+      className={`${type}__map map`}
+      ref={mapRef}
+    />
   );
 }
 

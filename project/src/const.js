@@ -24,7 +24,7 @@ export const Cities = {
     location: {
       latitude: 52.38333,
       longitude: 4.9,
-      zoom: 12,
+      zoom: 13,
     },
   },
 };

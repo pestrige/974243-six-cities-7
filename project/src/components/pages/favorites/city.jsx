@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../../card/card';
+import Offers from '../../offers/offers';
 import { CardType } from '../../../const';
 import PropTypes from 'prop-types';
 import offersProp from '../../offers/offers.prop';
@@ -14,22 +14,15 @@ export default function City({cityName, offers}) {
           </a>
         </div>
       </div>
-      <div className="favorites__places">
-        {
-          offers.map((offer) => (
-            <Card
-              key={offer.id}
-              offer={offer}
-              cardType={CardType.FAVORITE}
-            />
-          ))
-        }
-      </div>
+      <Offers
+        offers={offers}
+        type={CardType.FAVORITE}
+      />
     </li>
   );
 }
 
 City.propTypes = {
   cityName: PropTypes.string.isRequired,
-  offers: offersProp,
+  offers: offersProp.isRequired,
 };
