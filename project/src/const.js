@@ -18,6 +18,25 @@ export const CardType = {
   FAVORITE: 'favorites',
 };
 
+export const SortType = {
+  DEFAULT: {
+    name: 'default',
+    text: 'Popular',
+  },
+  LOW_PRICE: {
+    name: 'lowPrice',
+    text: 'Price: low to high',
+  },
+  HIGHT_PRICE: {
+    name: 'hightPrice',
+    text: 'Price: high to low',
+  },
+  TOP_RATED: {
+    name: 'topRated',
+    text: 'Top rated first',
+  },
+};
+
 export const Cities = {
   PARIS: {
     name: 'Paris',

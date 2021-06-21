@@ -1,11 +1,15 @@
 export const ActionType = {
   CHANGE_CITY: 'changeCity',
-  SET_OFFERS: 'setOffers',
+  SORT: 'sort',
 };
 
 export const ActionCreator = {
   changeCity: (cityName) => ({
     type: ActionType.CHANGE_CITY,
     payload: cityName,
+  }),
+  sort: (sortType) => ({
+    type: ActionType.SORT,
+    payload: sortType,
   }),
 };

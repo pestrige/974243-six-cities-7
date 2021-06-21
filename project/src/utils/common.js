@@ -1,3 +1,5 @@
+import { SortType } from '../const';
+
 const MAX_RATING = 5;
 const MAX_PERSENTAGE = 100;
 const MONTH_SHIFT = 1;
@@ -16,3 +18,10 @@ export const formatDate = (date, isFull = false) => {
 };
 
 export const filterOffers = (offers, cityName) => offers.filter((offer) => offer.city.name === cityName);
+
+export const Sorting = {
+  [SortType.DEFAULT.name]: (offers) => offers.slice(),
+  [SortType.LOW_PRICE.name]: (offers) => offers.slice().sort((a, b) => a.price - b.price),
+  [SortType.HIGHT_PRICE.name]: (offers) => offers.slice().sort((a, b) => b.price - a.price),
+  [SortType.TOP_RATED.name]: (offers) => offers.slice().sort((a, b) => b.rating - a.rating),
+};

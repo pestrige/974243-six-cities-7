@@ -1,8 +1,9 @@
 import { ActionType } from './action';
+import { SortType, Cities } from '../const';
 
 const initState = {
-  cityName: 'Paris',
-  offers: [],
+  cityName: Cities.PARIS.name,
+  sortType: SortType.DEFAULT,
 };
 
 export const reducer = (state = initState, action) => {
@@ -11,6 +12,12 @@ export const reducer = (state = initState, action) => {
       return {
         ...state,
         cityName: action.payload,
+        sortType: SortType.DEFAULT,
+      };
+    case ActionType.SORT:
+      return {
+        ...state,
+        sortType: action.payload,
       };
     default:
       return state;

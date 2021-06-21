@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-//import { connect } from 'react-redux';
 import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import { useMap } from '../../hooks/useMap';
@@ -29,9 +28,4 @@ Map.propTypes = {
   cityName: PropTypes.string.isRequired,
 };
 
-// const mapStateToProps = (state) => ({
-//   cityName: state.cityName,
-// });
-
 export default Map;
-//export default connect(mapStateToProps, null)(Map);
