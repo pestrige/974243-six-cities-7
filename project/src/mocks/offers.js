@@ -304,7 +304,7 @@ export const OFFERS = [
       'https://7.react.pages.academy/static/hotel/7.jpg',
     ],
     'title': 'House in countryside',
-    'is_favorite': false,
+    'is_favorite': true,
     'is_premium': true,
     'rating': 3.4,
     'type': 'room',
@@ -360,7 +360,7 @@ export const OFFERS = [
       'https://7.react.pages.academy/static/hotel/1.jpg',
     ],
     'title': 'Loft Studio in the Central Area',
-    'is_favorite': false,
+    'is_favorite': true,
     'is_premium': false,
     'rating': 4.2,
     'type': 'apartment',
@@ -413,7 +413,7 @@ export const OFFERS = [
       'https://7.react.pages.academy/static/hotel/11.jpg',
     ],
     'title': 'Loft Studio in the Central Area',
-    'is_favorite': false,
+    'is_favorite': true,
     'is_premium': false,
     'rating': 3.9,
     'type': 'house',
@@ -827,7 +827,7 @@ export const OFFERS = [
   },
   {
     'city': {
-      'name': 'Brussels',
+      'name': 'Brussels1',
       'location': {
         'latitude': 50.846557,
         'longitude': 4.351697,
@@ -852,7 +852,7 @@ export const OFFERS = [
       'https://7.react.pages.academy/static/hotel/4.jpg',
     ],
     'title': 'Canal View Prinsengracht',
-    'is_favorite': false,
+    'is_favorite': true,
     'is_premium': false,
     'rating': 2.2,
     'type': 'room',
@@ -886,7 +886,7 @@ export const OFFERS = [
   },
   {
     'city': {
-      'name': 'Brussels',
+      'name': 'Brussels1',
       'location': {
         'latitude': 50.846557,
         'longitude': 4.351697,
