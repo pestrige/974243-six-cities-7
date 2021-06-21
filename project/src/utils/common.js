@@ -14,3 +14,5 @@ export const formatDate = (date, isFull = false) => {
 
   return isFull ? `${Months[rawMonth]} ${year}` : `${year}-${month}-${day}`;
 };
+
+export const filterOffers = (offers, cityName) => offers.filter((offer) => offer.city.name === cityName);

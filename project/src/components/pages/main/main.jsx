@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../../header/header';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
 import offersProp from '../../offers/offers.prop';
 import { Cities } from '../../../const';
+import { filterOffers } from '../../../utils/common';
 
-export default function Main({offers}) {
+function Main({offers, city}) {
   const [activeOffer, setActiveOffer] = useState({});
+  const filteredOffers = filterOffers(offers, city);
 
   return (
     <div className="page page--gray page--main">
@@ -54,7 +58,9 @@ export default function Main({offers}) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">
+                {filteredOffers.length} places to stay in {city}
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -71,7 +77,7 @@ export default function Main({offers}) {
                 </ul>
               </form>
               <Offers
-                offers={offers}
+                offers={filteredOffers}
                 activeOffer={activeOffer}
                 handleMouseEnter={setActiveOffer}
               />
@@ -92,4 +98,14 @@ export default function Main({offers}) {
 
 Main.propTypes = {
   offers: offersProp,
+  city: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  city: state.cityName,
+});
+
+export { Main }; // export for future tests
+export default connect(mapStateToProps, null)(Main);
+
+

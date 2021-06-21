@@ -50,3 +50,4 @@ Offers.propTypes = {
     PropTypes.func,
   ]),
 };
+

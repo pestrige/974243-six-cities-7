@@ -27,6 +27,14 @@ export const Cities = {
       zoom: 13,
     },
   },
+  PARIS: {
+    name: 'Paris',
+    location: {
+      latitude: 48.85341,
+      longitude: 2.3488,
+      zoom: 13,
+    },
+  },
 };
 
 export const MapClass = {

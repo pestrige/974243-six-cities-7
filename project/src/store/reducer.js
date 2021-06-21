@@ -1,14 +1,7 @@
 import { ActionType } from './action';
 
 const initState = {
-  city: {
-    name: 'Paris',
-    location: {
-      latitude: 48.85341,
-      longitude: 2.3488,
-      zoom: 13,
-    },
-  },
+  cityName: 'Paris',
   offers: [],
 };
 
@@ -17,7 +10,7 @@ export const reducer = (state = initState, action) => {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        city: state.city,
+        city: action.payload,
       };
     default:
       return state;
