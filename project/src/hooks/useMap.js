@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Marker } from '../const';
+import { Cities, Marker } from '../const';
 
 const defaultMarker = leaflet.icon({
   iconUrl: Marker.URL,
@@ -14,14 +14,16 @@ const activeMarker = leaflet.icon({
   iconAnchor: Marker.ANCHOR,
 });
 
-export function useMap(container, points, activePoint, city) {
+const findCurrentCity = (cityName) => Object.values(Cities).find((city) => city.name === cityName);
+
+export function useMap(container, points, activePoint, cityName) {
   const [map, setMap] = useState(null);
   const activePointId = activePoint.id;
 
   useEffect(() => {
     // отрисовываем карту, если ее нет
     if (container.current !== null && map === null) {
-      const {location} = city;
+      const {location} = findCurrentCity(cityName);
       const leafletMap = leaflet.map(container.current, {
         center: {
           lat: location.latitude,
@@ -41,13 +43,12 @@ export function useMap(container, points, activePoint, city) {
 
       setMap(leafletMap);
     }
-  }, [container, city, points, map]);
+  }, [container, cityName, points, map]);
 
   useEffect(() => {
     // рисуем маркеры для активного города
     if (map) {
       points
-        .filter((point) => point.city.name === city.name)
         .forEach(({location, id}) => {
           leaflet
             .marker({
@@ -59,7 +60,7 @@ export function useMap(container, points, activePoint, city) {
             .addTo(map);
         });
     }
-  }, [points, city, activePointId, map]);
+  }, [points, activePointId, map]);
 
   return map;
 }

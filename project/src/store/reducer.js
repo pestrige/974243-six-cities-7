@@ -10,7 +10,7 @@ export const reducer = (state = initState, action) => {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        city: action.payload,
+        cityName: action.payload,
       };
     default:
       return state;

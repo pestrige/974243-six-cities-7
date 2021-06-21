@@ -6,8 +6,8 @@ import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
 import { useParams } from 'react-router-dom';
-import { getPersentage } from '../../../utils/common';
-import { OfferType, CardType, MapClass, Cities } from '../../../const';
+import { getPersentage, filterOffers} from '../../../utils/common';
+import { OfferType, CardType, MapClass } from '../../../const';
 import offersProp from '../../offers/offers.prop';
 
 import { adaptReviewsToClient } from '../../../utils/adapters';
@@ -22,7 +22,8 @@ export default function Offer({offers}) {
   const currentOffers = offers.slice();
   const currentIndex = currentOffers.findIndex((offer) => offer.id === Number(id));
   const [currentOffer] = currentOffers.splice(currentIndex, 1);
-  const closestOffers = currentOffers.slice(0, CLOSEST_OFFERS_COUNT);
+  const currentCityName = currentOffer.city.name;
+  const closestOffers = filterOffers(currentOffers, currentCityName).slice(0, CLOSEST_OFFERS_COUNT);
   const {
     images,
     isPremium,
@@ -124,9 +125,10 @@ export default function Offer({offers}) {
             </div>
           </div>
           <Map
+            key={id}
             offers={closestOffers}
-            currentCity={Cities.AMSTERDAM}
             type={MapClass.OFFER}
+            cityName={currentCityName}
           />
         </section>
         <div className="container">
