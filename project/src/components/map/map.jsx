@@ -4,11 +4,12 @@ import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import { useMap } from '../../hooks/useMap';
 import { MapClass } from '../../const';
+import cityProp from '../cities-list/city.prop';
 
-function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, cityName}) {
+function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, city}) {
   const mapRef = useRef(null);
 
-  useMap(mapRef, offers, activeOffer, cityName);
+  useMap(mapRef, offers, activeOffer, city);
 
   return (
     <section
@@ -25,7 +26,7 @@ Map.propTypes = {
     offerProp,
   ]),
   type: PropTypes.string,
-  cityName: PropTypes.string.isRequired,
+  city: cityProp,
 };
 
 export default Map;

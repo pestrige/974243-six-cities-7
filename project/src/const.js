@@ -1,3 +1,5 @@
+export const CLOSEST_OFFERS_COUNT = 3;
+
 export const AppRoute = {
   ROOT: '/',
   LOGIN: '/login',

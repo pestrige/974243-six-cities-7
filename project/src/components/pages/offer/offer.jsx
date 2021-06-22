@@ -1,30 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Header from '../../header/header';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
 import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
-import { useParams } from 'react-router-dom';
-import { getPersentage, filterOffers} from '../../../utils/common';
-import { OfferType, CardType, MapClass } from '../../../const';
+import { getPersentage } from '../../../utils/common';
+import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT } from '../../../const';
+import reviewsProp from './reviews.prop';
+import offerProp from '../../card/card.prop';
 import offersProp from '../../offers/offers.prop';
 
-import { adaptReviewsToClient } from '../../../utils/adapters';
-import { REVIEWS } from '../../../mocks/reviews';
-
-const CLOSEST_OFFERS_COUNT = 3;
-
-export default function Offer({offers}) {
-  const reviews = adaptReviewsToClient(REVIEWS);
-
-  const {id} = useParams();
-  const currentOffers = offers.slice();
-  const currentIndex = currentOffers.findIndex((offer) => offer.id === Number(id));
-  const [currentOffer] = currentOffers.splice(currentIndex, 1);
-  const currentCityName = currentOffer.city.name;
-  const closestOffers = filterOffers(currentOffers, currentCityName).slice(0, CLOSEST_OFFERS_COUNT);
+function Offer({id, currentOffer, closestOffers, reviews}) {
   const {
+    city,
     images,
     isPremium,
     isFavorite,
@@ -128,7 +120,7 @@ export default function Offer({offers}) {
             key={id}
             offers={closestOffers}
             type={MapClass.OFFER}
-            cityName={currentCityName}
+            city={city}
           />
         </section>
         <div className="container">
@@ -143,5 +135,19 @@ export default function Offer({offers}) {
 }
 
 Offer.propTypes = {
-  offers: offersProp,
+  id: PropTypes.number.isRequired,
+  currentOffer: offerProp,
+  closestOffers: offersProp,
+  reviews: reviewsProp,
 };
+
+const mapStateToProps = (state, {id}) => ({
+  reviews: state.reviews,
+  currentOffer: state.offers.find((offer) => offer.id === id),
+  closestOffers: state.offers
+    .filter((offer) => offer.city.name === (state.offers.find((item) => item.id === id)).city.name && offer.id !== id)
+    .slice(0, CLOSEST_OFFERS_COUNT),
+});
+
+export { Offer };
+export default connect(mapStateToProps, null)(Offer);

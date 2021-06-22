@@ -8,13 +8,12 @@ import Sort from '../../sort/sort';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
 import offersProp from '../../offers/offers.prop';
-import { filterOffers, Sorting } from '../../../utils/common';
+import cityProp from '../../cities-list/city.prop';
 
-function Main({offers, cityName, sortType}) {
+function Main({offers, city}) {
   const [activeOffer, setActiveOffer] = useState({});
-  const filteredOffers = filterOffers(offers, cityName);
-  const sortedOffers = filteredOffers.length > 0 ? Sorting[sortType.name](filteredOffers) : [];
-  const isOffers = sortedOffers.length;
+  const isOffers = offers.length;
+
   return (
     <div className={`page page--gray page--main ${isOffers ? '' : 'page__main--index-empty'}`}>
       <Header />
@@ -34,21 +33,21 @@ function Main({offers, cityName, sortType}) {
                     <section className="cities__places places">
                       <h2 className="visually-hidden">Places</h2>
                       <b className="places__found">
-                        {filteredOffers.length} places to stay in {cityName}
+                        {offers.length} places to stay in {city.name}
                       </b>
-                      <Sort key={cityName} />
+                      <Sort key={city.name} />
                       <Offers
-                        offers={sortedOffers}
+                        offers={offers}
                         activeOffer={activeOffer}
                         handleMouseEnter={setActiveOffer}
                       />
                     </section>
                     <div className="cities__right-section">
                       <Map
-                        key={cityName}
-                        offers={filteredOffers}
+                        key={city.name}
+                        offers={offers}
                         activeOffer={activeOffer}
-                        cityName={cityName}
+                        city={city}
                       />
                     </div>
                   </React.Fragment>
@@ -63,7 +62,7 @@ function Main({offers, cityName, sortType}) {
 
 Main.propTypes = {
   offers: offersProp,
-  cityName: PropTypes.string.isRequired,
+  city: cityProp,
   sortType: PropTypes.shape({
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
@@ -71,8 +70,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  cityName: state.cityName,
-  sortType: state.sortType,
+  city: state.city,
+  offers: state.sortedOffers,
 });
 
 export { Main }; // export for future tests

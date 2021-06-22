@@ -17,11 +17,37 @@ export const formatDate = (date, isFull = false) => {
   return isFull ? `${Months[rawMonth]} ${year}` : `${year}-${month}-${day}`;
 };
 
-export const filterOffers = (offers, cityName) => offers.filter((offer) => offer.city.name === cityName);
-
 export const Sorting = {
-  [SortType.DEFAULT.name]: (offers) => offers.slice(),
-  [SortType.LOW_PRICE.name]: (offers) => offers.slice().sort((a, b) => a.price - b.price),
-  [SortType.HIGHT_PRICE.name]: (offers) => offers.slice().sort((a, b) => b.price - a.price),
-  [SortType.TOP_RATED.name]: (offers) => offers.slice().sort((a, b) => b.rating - a.rating),
+  [SortType.DEFAULT.name]: (offers, cityName) => (
+    offers.slice()
+      .filter((offer) => offer.city.name === cityName)
+  ),
+  [SortType.LOW_PRICE.name]: (offers, cityName) => (
+    offers.slice()
+      .filter((offer) => offer.city.name === cityName)
+      .sort((a, b) => a.price - b.price)
+  ),
+  [SortType.HIGHT_PRICE.name]: (offers, cityName) => (
+    offers.slice()
+      .filter((offer) => offer.city.name === cityName)
+      .sort((a, b) => b.price - a.price)
+  ),
+  [SortType.TOP_RATED.name]: (offers, cityName) => (
+    offers.slice()
+      .filter((offer) => offer.city.name === cityName)
+      .sort((a, b) => b.rating - a.rating)
+  ),
+};
+
+export const createOffersMap = (offers) => {
+  const offersMap = new Map();
+  offers
+    .filter((offer) => offer.isFavorite)
+    .forEach((offer) => {
+      const cityName = offer.city.name;
+      const value = (offersMap.get(cityName) || []);
+      value.push(offer);
+      offersMap.set(cityName, value);
+    });
+  return [...offersMap.entries()];
 };

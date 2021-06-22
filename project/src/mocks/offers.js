@@ -827,7 +827,7 @@ export const OFFERS = [
   },
   {
     'city': {
-      'name': 'Brussels1',
+      'name': 'Brussels',
       'location': {
         'latitude': 50.846557,
         'longitude': 4.351697,
@@ -886,7 +886,7 @@ export const OFFERS = [
   },
   {
     'city': {
-      'name': 'Brussels1',
+      'name': 'Brussels',
       'location': {
         'latitude': 50.846557,
         'longitude': 4.351697,

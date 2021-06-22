@@ -9,7 +9,7 @@ export default function City({isActive, name, handleClick}) {
       <Link
         className={`${isActive ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
         to={AppRoute.ROOT}
-        onClick={(evt) => handleClick(evt.target.innerText)}
+        onClick={() => handleClick(name)}
       >
         <span>{name}</span>
       </Link>
