@@ -9,11 +9,11 @@ const rotateArrow = (isOpen) => (
   isOpen ? {transform: 'rotate(180deg)', top: '35%'} : {}
 );
 
-function Sort({sortType, sort}) {
+function Sort({sortType, onSort}) {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const handleClick = (payload) => {
     setIsSortOpen(false);
-    sort(payload);
+    onSort(payload);
   };
 
   return (
@@ -55,7 +55,7 @@ Sort.propTypes = {
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   }),
-  sort: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sort(sortType) {
+  onSort(sortType) {
     dispatch(ActionCreator.sort(sortType));
   },
 });
