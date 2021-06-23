@@ -10,6 +10,8 @@ import { AppRoute } from '../../../const';
 import { createOffersMap } from '../../../utils/common';
 
 function Favorites({ favoritesOffers, offersMap }) {
+  // eslint-disable-next-line no-console
+  console.log(offersMap);
   const isEmpty = favoritesOffers.length === 0;
 
   return (

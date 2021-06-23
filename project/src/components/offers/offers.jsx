@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import Card from '../card/card';
 import offersProp from './offers.prop';
 import offerProp from '../card/card.prop';
 import { CardType } from '../../const';
-import { ActionCreator } from '../../store/action';
+// import { ActionCreator } from '../../store/action';
 
 const getClass = (type) => {
   switch (type) {
@@ -18,7 +18,7 @@ const getClass = (type) => {
   }
 };
 
-function Offers({
+export default function Offers({
   offers,
   activeOffer = {},
   type = CardType.DEFAULT,
@@ -53,12 +53,12 @@ Offers.propTypes = {
   ]),
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleOfferClick(id) {
-    dispatch(ActionCreator.handleOfferClick(id));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   handleOfferClick(id) {
+//     dispatch(ActionCreator.handleOfferClick(id));
+//   },
+// });
 
-export { Offers };
-export default connect(null, mapDispatchToProps)(Offers);
+//export { Offers };
+//export default connect(null, mapDispatchToProps)(Offers);
 

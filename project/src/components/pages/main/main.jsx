@@ -7,6 +7,7 @@ import CitiesList from '../../cities-list/cities-list';
 import Sort from '../../sort/sort';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
+import { sortOffers } from '../../../utils/common';
 import offersProp from '../../offers/offers.prop';
 import cityProp from '../../cities-list/city.prop';
 
@@ -71,7 +72,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.sortedOffers,
+  offers: sortOffers(state.offers, state.city.name, state.sortType.name) ,
 });
 
 export { Main }; // export for future tests

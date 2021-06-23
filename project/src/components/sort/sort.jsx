@@ -60,7 +60,6 @@ Sort.propTypes = {
 
 const mapStateToProps = (state) => ({
   sortType: state.sortType,
-  isSortOpen: state.isSortOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({

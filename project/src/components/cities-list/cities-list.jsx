@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import City from './city';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
-import { Cities } from '../../const';
+//import { Cities } from '../../const';
 import cityProp from './city.prop';
 
-const citiesList = Object.values(Cities);
-
-function CitiesList({city, changeCity}) {
+function CitiesList({citiesList, city, changeCity}) {
 
   return (
     <section className="locations container">
@@ -28,11 +26,13 @@ function CitiesList({city, changeCity}) {
 
 CitiesList.propTypes = {
   city: cityProp,
+  citiesList: PropTypes.arrayOf(cityProp),
   changeCity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  citiesList: state.citiesList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
