@@ -2,7 +2,7 @@ import React from 'react';
 import Review from './review';
 import Form from './form';
 import PropTypes from 'prop-types';
-import reviewProp from './review.prop';
+import reviewsProp from './reviews.prop';
 
 export default function Reviews({reviews, id}) {
   return (
@@ -21,9 +21,6 @@ export default function Reviews({reviews, id}) {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.oneOfType([
-    PropTypes.shape([]),
-    PropTypes.arrayOf(reviewProp).isRequired,
-  ]),
-  id: PropTypes.string.isRequired,
+  reviews: reviewsProp,
+  id: PropTypes.number.isRequired,
 };

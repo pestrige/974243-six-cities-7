@@ -4,10 +4,12 @@ import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import { useMap } from '../../hooks/useMap';
 import { MapClass } from '../../const';
+import cityProp from '../cities/city.prop';
 
-export default function Map({offers, activeOffer = {}, currentCity, type = MapClass.DEFAULT}) {
+function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, city}) {
   const mapRef = useRef(null);
-  useMap(mapRef, offers, activeOffer, currentCity);
+
+  useMap(mapRef, offers, activeOffer, city);
 
   return (
     <section
@@ -23,13 +25,8 @@ Map.propTypes = {
     PropTypes.shape({}),
     offerProp,
   ]),
-  currentCity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-  }),
   type: PropTypes.string,
+  city: cityProp,
 };
+
+export default Map;

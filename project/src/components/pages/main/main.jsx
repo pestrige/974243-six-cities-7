@@ -1,88 +1,59 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../../header/header';
+import Empty from './empty';
+import Cities from '../../cities/cities';
+import Sort from '../../sort/sort';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
+import { sortOffers } from '../../../utils/common';
 import offersProp from '../../offers/offers.prop';
-import { Cities } from '../../../const';
+import cityProp from '../../cities/city.prop';
 
-export default function Main({offers}) {
+function Main({offers, city}) {
   const [activeOffer, setActiveOffer] = useState({});
+  const isOffers = offers.length;
 
   return (
-    <div className="page page--gray page--main">
+    <div className={`page page--gray page--main ${isOffers ? '' : 'page__main--index-empty'}`}>
       <Header />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/#">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <Cities />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by </span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width={7} height={4}>
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <Offers
-                offers={offers}
-                activeOffer={activeOffer}
-                handleMouseEnter={setActiveOffer}
-              />
-            </section>
-            <div className="cities__right-section">
-              <Map
-                offers={offers}
-                activeOffer={activeOffer}
-                currentCity={Cities.AMSTERDAM}
-              />
-            </div>
+          <div className={`cities__places-container container ${isOffers ? '' : 'cities__places-container--empty'}`}>
+            {
+              !isOffers
+                ? <Empty />
+                : (
+                  <React.Fragment>
+                    <section className="cities__places places">
+                      <h2 className="visually-hidden">Places</h2>
+                      <b className="places__found">
+                        {offers.length} places to stay in {city.name}
+                      </b>
+                      <Sort key={city.name} />
+                      <Offers
+                        offers={offers}
+                        activeOffer={activeOffer}
+                        handleMouseEnter={setActiveOffer}
+                      />
+                    </section>
+                    <div className="cities__right-section">
+                      <Map
+                        key={city.name}
+                        offers={offers}
+                        activeOffer={activeOffer}
+                        city={city}
+                      />
+                    </div>
+                  </React.Fragment>
+                )
+            }
           </div>
         </div>
       </main>
@@ -92,4 +63,19 @@ export default function Main({offers}) {
 
 Main.propTypes = {
   offers: offersProp,
+  city: cityProp,
+  sortType: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }),
 };
+
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: sortOffers(state.offers, state.city.name, state.sortType.name) ,
+});
+
+export { Main }; // export for future tests
+export default connect(mapStateToProps, null)(Main);
+
+

@@ -1,26 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../../header/header';
 import City from './city';
 import Empty from './empty';
 import offersProp from '../../offers/offers.prop';
 import { AppRoute } from '../../../const';
+import { createOffersMap } from '../../../utils/common';
 
-const createOffersMap = (offers) => {
-  const offersMap = new Map();
-  offers.forEach((offer) => {
-    const cityName = offer.city.name;
-    const value = (offersMap.get(cityName) || []);
-    value.push(offer);
-    offersMap.set(cityName, value);
-  });
-  return [...offersMap.entries()];
-};
-
-export default function Favorites({ offers = [] }) {
-  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+function Favorites({ favoritesOffers, offersMap }) {
   const isEmpty = favoritesOffers.length === 0;
-  const offersMap = createOffersMap(favoritesOffers);
 
   return (
     <div className="page">
@@ -59,5 +49,14 @@ export default function Favorites({ offers = [] }) {
 }
 
 Favorites.propTypes = {
-  offers: offersProp,
+  favoritesOffers: offersProp,
+  offersMap: PropTypes.array,
 };
+
+const mapStateToProps = (state) => ({
+  favoritesOffers: state.offers.filter((offer) => offer.isFavorite),
+  offersMap: createOffersMap(state.offers),
+});
+
+export { Favorites };
+export default connect(mapStateToProps, null)(Favorites);

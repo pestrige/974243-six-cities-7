@@ -47,7 +47,6 @@ export function useMap(container, points, activePoint, city) {
     // рисуем маркеры для активного города
     if (map) {
       points
-        .filter((point) => point.city.name === city.name)
         .forEach(({location, id}) => {
           leaflet
             .marker({
@@ -59,7 +58,7 @@ export function useMap(container, points, activePoint, city) {
             .addTo(map);
         });
     }
-  }, [points, city, activePointId, map]);
+  }, [points, activePointId, map]);
 
   return map;
 }
