@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
 import cityProp from './city.prop';
 
-function CitiesList({citiesList, city, changeCity}) {
+function Cities({cities, city, onChange}) {
 
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        { citiesList.map((item) => (
+        { cities.map((item) => (
           <City
             key={item.name}
             isActive={item.name === city.name}
             name={item.name}
-            handleClick = {changeCity}
+            onChange = {onChange}
           />
         )) }
       </ul>
@@ -23,22 +23,22 @@ function CitiesList({citiesList, city, changeCity}) {
   );
 }
 
-CitiesList.propTypes = {
+Cities.propTypes = {
   city: cityProp,
-  citiesList: PropTypes.arrayOf(cityProp),
-  changeCity: PropTypes.func.isRequired,
+  cities: PropTypes.arrayOf(cityProp),
+  onChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  citiesList: state.citiesList,
+  cities: state.cities,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
+  onChange(city) {
     dispatch(ActionCreator.changeCity(city));
   },
 });
 
-export { CitiesList };
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export { Cities };
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

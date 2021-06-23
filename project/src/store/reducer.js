@@ -6,13 +6,13 @@ import { REVIEWS } from '../mocks/reviews';
 
 const adaptedOffers = adaptOffersToClient(OFFERS);
 const adaptedReviews = adaptReviewsToClient(REVIEWS);
-const citiesList = Object.values(Cities);
+const cities = Object.values(Cities);
 
 const initState = {
   offers: adaptedOffers,
   reviews: adaptedReviews,
   city: Cities.PARIS,
-  citiesList,
+  cities,
   sortType: SortType.DEFAULT,
 };
 
@@ -21,7 +21,7 @@ export const reducer = (state = initState, action) => {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        city: state.citiesList.find((city) => city.name === action.payload),
+        city: state.cities.find((city) => city.name === action.payload),
         sortType: SortType.DEFAULT,
       };
     case ActionType.SORT:

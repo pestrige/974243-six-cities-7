@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../../header/header';
 import Empty from './empty';
-import CitiesList from '../../cities-list/cities-list';
+import Cities from '../../cities/cities';
 import Sort from '../../sort/sort';
 import Offers from '../../offers/offers';
 import Map from '../../map/map';
 import { sortOffers } from '../../../utils/common';
 import offersProp from '../../offers/offers.prop';
-import cityProp from '../../cities-list/city.prop';
+import cityProp from '../../cities/city.prop';
 
 function Main({offers, city}) {
   const [activeOffer, setActiveOffer] = useState({});
@@ -22,7 +22,7 @@ function Main({offers, city}) {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CitiesList />
+          <Cities />
         </div>
         <div className="cities">
           <div className={`cities__places-container container ${isOffers ? '' : 'cities__places-container--empty'}`}>

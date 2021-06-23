@@ -4,7 +4,7 @@ import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import { useMap } from '../../hooks/useMap';
 import { MapClass } from '../../const';
-import cityProp from '../cities-list/city.prop';
+import cityProp from '../cities/city.prop';
 
 function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, city}) {
   const mapRef = useRef(null);
