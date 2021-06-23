@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import City from './city';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
-//import { Cities } from '../../const';
 import cityProp from './city.prop';
 
 function CitiesList({citiesList, city, changeCity}) {
