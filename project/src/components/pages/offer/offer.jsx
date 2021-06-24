@@ -8,13 +8,18 @@ import Map from '../../map/map';
 import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
+import OfferLoading from './offer-loading';
 import { getPersentage } from '../../../utils/common';
 import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT } from '../../../const';
 import reviewsProp from './reviews.prop';
 import offerProp from '../../card/card.prop';
 import offersProp from '../../offers/offers.prop';
 
-function Offer({id, currentOffer, closestOffers, reviews}) {
+function Offer({id, currentOffer, closestOffers, reviews, isDataLoaded}) {
+  if (!isDataLoaded) {
+    return <OfferLoading />;
+  }
+
   const {
     city,
     images,
@@ -139,6 +144,7 @@ Offer.propTypes = {
   currentOffer: offerProp,
   closestOffers: offersProp,
   reviews: reviewsProp,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, {id}) => ({
@@ -147,6 +153,7 @@ const mapStateToProps = (state, {id}) => ({
   closestOffers: state.offers
     .filter((offer) => offer.city.name === (state.offers.find((item) => item.id === id)).city.name && offer.id !== id)
     .slice(0, CLOSEST_OFFERS_COUNT),
+  isDataLoaded: state.isDataLoaded,
 });
 
 export { Offer };

@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import OffersLoading from '../offers-loading/offers-loading';
 import Card from '../card/card';
 import offersProp from './offers.prop';
 import offerProp from '../card/card.prop';
@@ -16,23 +18,26 @@ const getClass = (type) => {
   }
 };
 
-export default function Offers({
+function Offers({
   offers,
   activeOffer = {},
   type = CardType.DEFAULT,
-  handleMouseEnter = null }) {
+  handleMouseEnter = null,
+  isDataLoaded }) {
 
   return (
     <div className={getClass(type)}>
       {
-        offers.map((card) => (
-          <Card
-            key = {card.id}
-            offer = {card}
-            cardType={type}
-            handleMouseEnter={handleMouseEnter}
-            isActive={card.id === activeOffer.id}
-          />))
+        !isDataLoaded
+          ? <OffersLoading />
+          : offers.map((card) => (
+            <Card
+              key = {card.id}
+              offer = {card}
+              cardType={type}
+              handleMouseEnter={handleMouseEnter}
+              isActive={card.id === activeOffer.id}
+            />))
       }
     </div>
   );
@@ -49,4 +54,12 @@ Offers.propTypes = {
     PropTypes.oneOf([null]),
     PropTypes.func,
   ]),
+  isDataLoaded: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  isDataLoaded: state.isDataLoaded,
+});
+
+export { Offers };
+export default connect(mapStateToProps, null)(Offers);

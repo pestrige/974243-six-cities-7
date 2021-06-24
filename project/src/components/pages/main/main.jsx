@@ -11,7 +11,7 @@ import { sortOffers } from '../../../utils/common';
 import offersProp from '../../offers/offers.prop';
 import cityProp from '../../cities/city.prop';
 
-function Main({offers, city}) {
+function Main({offers, city, isDataLoaded}) {
   const [activeOffer, setActiveOffer] = useState({});
   const isOffers = offers.length;
 
@@ -27,14 +27,18 @@ function Main({offers, city}) {
         <div className="cities">
           <div className={`cities__places-container container ${isOffers ? '' : 'cities__places-container--empty'}`}>
             {
-              !isOffers
+              !isOffers && isDataLoaded
                 ? <Empty />
                 : (
                   <React.Fragment>
                     <section className="cities__places places">
                       <h2 className="visually-hidden">Places</h2>
                       <b className="places__found">
-                        {offers.length} places to stay in {city.name}
+                        {
+                          isDataLoaded
+                            ? `${offers.length} places to stay in ${city.name}`
+                            : 'Places are loading ...'
+                        }
                       </b>
                       <Sort key={city.name} />
                       <Offers
@@ -68,11 +72,13 @@ Main.propTypes = {
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   }),
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: sortOffers(state.offers, state.city.name, state.sortType.name) ,
+  isDataLoaded: state.isDataLoaded,
 });
 
 export { Main }; // export for future tests
