@@ -7,6 +7,10 @@ export const AppRoute = {
   OFFER: '/offer',
 };
 
+export const ApiRoute ={
+  OFFERS: '/hotels',
+};
+
 export const OfferType = {
   apartment: 'Apartment',
   room: 'Private Room',
