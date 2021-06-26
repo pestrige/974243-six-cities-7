@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { getUserDataFromStorage } from '../../utils/common';
+import { logout } from '../../store/api-action';
 
-export default function Header({ isLogin = true }) {
+function Header({ authorizationStatus, Logout }) {
+  const loginRef = useRef();
+  const isLogin = authorizationStatus === AuthorizationStatus.AUTH;
+  const userData = getUserDataFromStorage();
+  const handleClick = () => {
+    loginRef.current.blur();
+    if (isLogin) {
+      Logout();
+    }
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -19,14 +32,27 @@ export default function Header({ isLogin = true }) {
                 isLogin &&
                   <li className="header__nav-item user">
                     <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      <div
+                        style={{
+                          backgroundImage: `url(${userData.avatarUrl})`,
+                          borderRadius: '10px',
+                        }}
+                        className="header__avatar-wrapper user__avatar-wrapper"
+                      >
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">
+                        {userData.email}
+                      </span>
                     </Link>
                   </li>
               }
               <li className="header__nav-item">
-                <Link to={AppRoute.LOGIN} className="header__nav-link">
+                <Link
+                  ref={loginRef}
+                  to={isLogin ? AppRoute.ROOT : AppRoute.LOGIN}
+                  onClick={handleClick}
+                  className="header__nav-link"
+                >
                   <span className="header__signout">Sign {isLogin ? 'out' : 'in'}</span>
                 </Link>
               </li>
@@ -39,5 +65,19 @@ export default function Header({ isLogin = true }) {
 }
 
 Header.propTypes = {
-  isLogin: PropTypes.bool,
+  authorizationStatus: PropTypes.string.isRequired,
+  Logout: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  Logout() {
+    dispatch(logout());
+  },
+});
+
+export { Header };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

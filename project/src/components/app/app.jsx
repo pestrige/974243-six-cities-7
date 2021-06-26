@@ -1,26 +1,30 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import browserHistory from '../../browser-histiry';
 
 import Main from '../pages/main/main';
 import Login from '../pages/login/login';
 import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
-          <Login isLogin={false} />
+          <Login />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites />}
+        />
         <Route
           exact path={`${AppRoute.OFFER}/:id`}
           render={({match}) => <Offer id={+match.params.id} />}

@@ -6,19 +6,24 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer } from './store/reducer';
 import { createApi } from './services/api';
-import { fetchOffers } from './store/api-action';
+import { ActionCreator } from './store/action';
+import { AuthorizationStatus } from './const';
+import { checkAuth, fetchOffers } from './store/api-action';
+import { redirect } from './store/middlewares/redirect';
 import App from './components/app/app';
 
 const api = createApi(
-  // TODO: dispatch onAuthorized function here
+  () => store.dispatch(ActionCreator.authorize(AuthorizationStatus.NO_AUTH)),
 );
 const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
   ),
 );
 
+store.dispatch(checkAuth());
 store.dispatch(fetchOffers());
 
 ReactDOM.render(

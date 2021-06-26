@@ -1,8 +1,11 @@
 export const ActionType = {
-  LOAD_OFFERS: 'loadOffers',
-  CHANGE_CITY: 'changeCity',
-  SORT: 'sort',
-  GET_OFFER: 'getOffer',
+  LOAD_OFFERS: 'app/loadOffers',
+  CHANGE_CITY: 'app/changeCity',
+  SORT: 'app/sort',
+  REDIRECT: 'app/redirect',
+  GET_OFFER: 'data/getOffer',
+  AUTHORIZE: 'user/authorize',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -21,5 +24,16 @@ export const ActionCreator = {
   getOffer: (id) => ({
     type: ActionType.GET_OFFER,
     payload: id,
+  }),
+  authorize: (status) =>({
+    type: ActionType.AUTHORIZE,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
+  }),
+  redirect: (url) => ({
+    type: ActionType.REDIRECT,
+    payload: url,
   }),
 };
