@@ -47,6 +47,7 @@ export const adaptReviewsToClient = (data) => Array.isArray(data)
   : adaptReviewToClient(data);
 
 export const adaptUserDataToClient = (data) => ({
+  token: data.token,
   email: data.email,
   avatarUrl: data.avatar_url,
 });
