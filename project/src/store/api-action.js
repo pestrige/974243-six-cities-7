@@ -1,5 +1,5 @@
 import { ActionCreator } from './action';
-import { ApiRoute, AppRoute, AuthorizationStatus } from '../const';
+import { ApiRoute, AuthorizationStatus } from '../const';
 import { adaptOffersToClient, adaptUserDataToClient } from '../utils/adapters';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
@@ -18,7 +18,6 @@ export const checkAuth = () => (dispatch, getState, api) => {
       status: AuthorizationStatus.AUTH,
       userData: adaptUserDataToClient(data),
     })))
-    .then(() => dispatch(ActionCreator.redirect(AppRoute.ROOT)))
     .catch(() => {});
 };
 
@@ -30,7 +29,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
         userData: adaptUserDataToClient(data),
       }));
     })
-    .then(() => dispatch(ActionCreator.redirect(AppRoute.ROOT)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (

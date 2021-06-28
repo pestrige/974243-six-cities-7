@@ -1,7 +1,6 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import browserHistory from '../../browser-histiry';
 
 import Main from '../pages/main/main';
 import Login from '../pages/login/login';
@@ -9,17 +8,20 @@ import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import LoginRoute from '../login-route/login-route';
 
 export default function App() {
   return (
-    <Router history={browserHistory}>
+    <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <Login />
-        </Route>
+        <LoginRoute
+          exact
+          path={AppRoute.LOGIN}
+          render={() => <Login />}
+        />
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
@@ -33,6 +35,6 @@ export default function App() {
           <NotFound />
         </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }

@@ -2,7 +2,6 @@ export const ActionType = {
   LOAD_OFFERS: 'app/loadOffers',
   CHANGE_CITY: 'app/changeCity',
   SORT: 'app/sort',
-  REDIRECT: 'app/redirect',
   GET_OFFER: 'data/getOffer',
   AUTHORIZE: 'user/authorize',
   UNAUTHORIZE: 'user/unAuthorize',
@@ -31,9 +30,5 @@ export const ActionCreator = {
   }),
   unAuthorize: () => ({
     type: ActionType.UNAUTHORIZE,
-  }),
-  redirect: (url) => ({
-    type: ActionType.REDIRECT,
-    payload: url,
   }),
 };
