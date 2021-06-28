@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,14 +12,6 @@ function Login({ authInfo, city, onSubmit }) {
   const { userData } = authInfo;
   const loginRef = useRef();
   const passwordRef = useRef();
-
-  useEffect(() => {
-    const loginInput = loginRef.current;
-    const passwordInput = passwordRef.current;
-    if (loginInput) {
-      loginInput.value ? passwordInput.focus() : loginInput.focus();
-    }
-  });
 
   const email = userData?.email || '';
   const handleSubmit = (evt) => {
