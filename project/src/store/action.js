@@ -5,7 +5,7 @@ export const ActionType = {
   REDIRECT: 'app/redirect',
   GET_OFFER: 'data/getOffer',
   AUTHORIZE: 'user/authorize',
-  LOGOUT: 'user/logout',
+  UNAUTHORIZE: 'user/unAuthorize',
 };
 
 export const ActionCreator = {
@@ -25,12 +25,12 @@ export const ActionCreator = {
     type: ActionType.GET_OFFER,
     payload: id,
   }),
-  authorize: (status) =>({
+  authorize: (authInfo) =>({
     type: ActionType.AUTHORIZE,
-    payload: status,
+    payload: authInfo,
   }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
+  unAuthorize: () => ({
+    type: ActionType.UNAUTHORIZE,
   }),
   redirect: (url) => ({
     type: ActionType.REDIRECT,

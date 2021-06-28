@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { getUserDataFromStorage } from '../../utils/common';
 import { logout } from '../../store/api-action';
+import authInfoProp from '../pages/login/authInfo.prop';
 
-function Header({ authorizationStatus, Logout }) {
+function Header({ authInfo, toLogout }) {
+  const { status, userData} = authInfo;
   const loginRef = useRef();
-  const isLogin = authorizationStatus === AuthorizationStatus.AUTH;
-  const userData = getUserDataFromStorage();
+  const isLogin = status === AuthorizationStatus.AUTH;
   const handleClick = () => {
     loginRef.current.blur();
     if (isLogin) {
-      Logout();
+      toLogout();
     }
   };
 
@@ -65,16 +65,16 @@ function Header({ authorizationStatus, Logout }) {
 }
 
 Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  Logout: PropTypes.func.isRequired,
+  authInfo: authInfoProp,
+  toLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+  authInfo: state.authInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  Logout() {
+  toLogout() {
     dispatch(logout());
   },
 });

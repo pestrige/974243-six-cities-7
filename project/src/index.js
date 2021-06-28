@@ -7,13 +7,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer } from './store/reducer';
 import { createApi } from './services/api';
 import { ActionCreator } from './store/action';
-import { AuthorizationStatus } from './const';
 import { checkAuth, fetchOffers } from './store/api-action';
 import { redirect } from './store/middlewares/redirect';
 import App from './components/app/app';
 
 const api = createApi(
-  () => store.dispatch(ActionCreator.authorize(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(ActionCreator.unAuthorize()),
 );
 const store = createStore(
   reducer,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import browserHistory from '../../browser-histiry';
 
@@ -12,7 +12,7 @@ import PrivateRoute from '../private-route/private-route';
 
 export default function App() {
   return (
-    <BrowserRouter history={browserHistory}>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
@@ -33,6 +33,6 @@ export default function App() {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }

@@ -13,7 +13,10 @@ const initialState = {
   cities,
   sortType: SortType.DEFAULT,
   isDataLoaded: false,
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authInfo: {
+    status: AuthorizationStatus.UNKNOWN,
+    userData: {},
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -38,12 +41,15 @@ export const reducer = (state = initialState, action) => {
     case ActionType.AUTHORIZE:
       return {
         ...state,
-        authorizationStatus: action.payload,
+        authInfo: action.payload,
       };
-    case ActionType.LOGOUT:
+    case ActionType.UNAUTHORIZE:
       return {
         ...state,
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        authInfo: {
+          status: AuthorizationStatus.NO_AUTH,
+          userData: {},
+        },
       };
     default:
       return state;

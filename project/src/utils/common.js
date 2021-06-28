@@ -52,8 +52,3 @@ export const createOffersMap = (offers) => {
     });
   return [...offersMap.entries()];
 };
-
-export const getUserDataFromStorage = () => JSON.parse(localStorage.getItem('userData'));
-export const setUserDataToStorage = ({token, email, avatar_url: avatarUrl}) => {
-  localStorage.setItem('userData', JSON.stringify({token, email, avatarUrl}));
-};

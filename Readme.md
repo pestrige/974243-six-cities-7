@@ -5,9 +5,6 @@
 
 ---
 
-Ссылка на собранный проект - https://six-cities-pestrige.herokuapp.com
-
----
 _Не удаляйте и не изменяйте папки и файлы:_
 _`.editorconfig`, `.gitattributes`, `.gitignore`._
 

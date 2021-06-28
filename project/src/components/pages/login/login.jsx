@@ -1,14 +1,15 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../../header/header';
-import { AppRoute, AuthorizationStatus } from '../../../const';
+import { AppRoute } from '../../../const';
 import { login } from '../../../store/api-action';
 import cityProp from '../../cities/city.prop';
-import { getUserDataFromStorage } from '../../../utils/common';
+import authInfoProp from './authInfo.prop';
 
-function Login({ authorizationStatus, city, onSubmit }) {
+function Login({ authInfo, city, onSubmit }) {
+  const { userData } = authInfo;
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -20,11 +21,7 @@ function Login({ authorizationStatus, city, onSubmit }) {
     }
   });
 
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return <Redirect to={AppRoute.ROOT} />;
-  }
-
-  const email = getUserDataFromStorage()?.email || '';
+  const email = userData?.email || '';
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit({
@@ -88,13 +85,13 @@ function Login({ authorizationStatus, city, onSubmit }) {
 }
 
 Login.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
+  authInfo: authInfoProp,
   city: cityProp,
   onSubmit: PropTypes.func.isRequired,
 };
 
 const mapPropsToState = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+  authInfo: state.authInfo,
   city: state.city,
 });
 
