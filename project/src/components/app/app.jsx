@@ -8,7 +8,6 @@ import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import LoginRoute from '../login-route/login-route';
 
 export default function App() {
   return (
@@ -17,10 +16,11 @@ export default function App() {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <LoginRoute
+        <PrivateRoute
           exact
           path={AppRoute.LOGIN}
           render={() => <Login />}
+          isPrivate={false}
         />
         <PrivateRoute
           exact
