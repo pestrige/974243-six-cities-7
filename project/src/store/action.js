@@ -1,8 +1,10 @@
 export const ActionType = {
-  LOAD_OFFERS: 'loadOffers',
-  CHANGE_CITY: 'changeCity',
-  SORT: 'sort',
-  GET_OFFER: 'getOffer',
+  LOAD_OFFERS: 'app/loadOffers',
+  CHANGE_CITY: 'app/changeCity',
+  SORT: 'app/sort',
+  GET_OFFER: 'data/getOffer',
+  AUTHORIZE: 'user/authorize',
+  UNAUTHORIZE: 'user/unAuthorize',
 };
 
 export const ActionCreator = {
@@ -21,5 +23,12 @@ export const ActionCreator = {
   getOffer: (id) => ({
     type: ActionType.GET_OFFER,
     payload: id,
+  }),
+  authorize: (authInfo) =>({
+    type: ActionType.AUTHORIZE,
+    payload: authInfo,
+  }),
+  unAuthorize: () => ({
+    type: ActionType.UNAUTHORIZE,
   }),
 };

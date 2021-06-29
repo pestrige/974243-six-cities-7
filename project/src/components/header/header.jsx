@@ -1,9 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import UserInfo from './user-info';
+import LoginLink from './login-link';
+import LogoutLink from './logout-link';
+import authInfoProp from '../pages/login/authInfo.prop';
 
-export default function Header({ isLogin = true }) {
+function Header({ authInfo }) {
+  const { status, userData} = authInfo;
+  const isLogin = status === AuthorizationStatus.AUTH;
+
   return (
     <header className="header">
       <div className="container">
@@ -16,19 +23,10 @@ export default function Header({ isLogin = true }) {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                isLogin &&
-                  <li className="header__nav-item user">
-                    <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </Link>
-                  </li>
+                isLogin && <UserInfo userData={userData}/>
               }
               <li className="header__nav-item">
-                <Link to={AppRoute.LOGIN} className="header__nav-link">
-                  <span className="header__signout">Sign {isLogin ? 'out' : 'in'}</span>
-                </Link>
+                { isLogin ? <LogoutLink /> : <LoginLink />}
               </li>
             </ul>
           </nav>
@@ -39,5 +37,12 @@ export default function Header({ isLogin = true }) {
 }
 
 Header.propTypes = {
-  isLogin: PropTypes.bool,
+  authInfo: authInfoProp,
 };
+
+const mapStateToProps = (state) => ({
+  authInfo: state.authInfo,
+});
+
+export { Header };
+export default connect(mapStateToProps)(Header);

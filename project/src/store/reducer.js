@@ -1,10 +1,8 @@
 import { ActionType } from './action';
-import { SortType, Cities } from '../const';
+import { SortType, Cities, AuthorizationStatus } from '../const';
 import { adaptReviewsToClient } from '../utils/adapters';
-//import { OFFERS } from '../mocks/offers';
 import { REVIEWS } from '../mocks/reviews';
 
-//const adaptedOffers = adaptOffersToClient(OFFERS);
 const adaptedReviews = adaptReviewsToClient(REVIEWS);
 const cities = Object.values(Cities);
 
@@ -15,6 +13,10 @@ const initialState = {
   cities,
   sortType: SortType.DEFAULT,
   isDataLoaded: false,
+  authInfo: {
+    status: AuthorizationStatus.UNKNOWN,
+    userData: {},
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -35,6 +37,19 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+      };
+    case ActionType.AUTHORIZE:
+      return {
+        ...state,
+        authInfo: action.payload,
+      };
+    case ActionType.UNAUTHORIZE:
+      return {
+        ...state,
+        authInfo: {
+          status: AuthorizationStatus.NO_AUTH,
+          userData: {},
+        },
       };
     default:
       return state;
