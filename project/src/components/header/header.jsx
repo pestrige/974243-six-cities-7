@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import UserInfo from './user-info';
 import LoginLink from './login-link';
 import LogoutLink from './logout-link';
+import Toast from '../toast/toast';
 import authInfoProp from '../pages/login/authInfo.prop';
 
-function Header({ authInfo }) {
-  const { status, userData} = authInfo;
+function Header({ authInfo, isToastShown }) {
+  const { status, userData } = authInfo;
   const isLogin = status === AuthorizationStatus.AUTH;
 
   return (
@@ -32,17 +34,20 @@ function Header({ authInfo }) {
           </nav>
         </div>
       </div>
+      {isToastShown && <Toast />}
     </header>
   );
 }
 
 Header.propTypes = {
   authInfo: authInfoProp,
+  isToastShown: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authInfo: state.authInfo,
+  isToastShown: state.toast.isShown,
 });
 
 export { Header };
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, null)(Header);

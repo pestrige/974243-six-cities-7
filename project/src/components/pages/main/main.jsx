@@ -78,7 +78,7 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: sortOffers(state.offers, state.city.name, state.sortType.name) ,
-  isDataLoaded: state.isDataLoaded,
+  isDataLoaded: state.isDataLoaded.offers,
 });
 
 export { Main }; // export for future tests

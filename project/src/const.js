@@ -1,16 +1,26 @@
 export const CLOSEST_OFFERS_COUNT = 3;
+export const MAX_REVIEWS = 10;
 
 export const AppRoute = {
   ROOT: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer',
+  NOT_FOUND: '/404',
 };
 
 export const ApiRoute ={
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  REVIEWS: '/comments',
+  CLOSEST: 'nearby',
+};
+
+export const HttpCode = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
 };
 
 export const AuthorizationStatus = {

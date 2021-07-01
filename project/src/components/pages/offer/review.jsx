@@ -13,6 +13,7 @@ export default function Review({review}) {
     name,
     avatarUrl,
   } = user;
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

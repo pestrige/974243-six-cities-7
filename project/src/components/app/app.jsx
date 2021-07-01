@@ -31,6 +31,9 @@ export default function App() {
           exact path={`${AppRoute.OFFER}/:id`}
           render={({match}) => <Offer id={+match.params.id} />}
         />
+        <Route path={`${AppRoute.NOT_FOUND}`}>
+          <NotFound />
+        </Route>
         <Route>
           <NotFound />
         </Route>
