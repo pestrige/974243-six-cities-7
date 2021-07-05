@@ -1,17 +1,20 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-function PrivateRoute({render, exact, path, authorizationStatus, isPrivate = true}) {
+function PrivateRoute(props) {
+  const history = useHistory();
+  const {render, exact, path, authorizationStatus, isPrivate = true} = props;
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
   const getComponent = (routeProps) => {
     if (isPrivate) {
       return isAuth ? render(routeProps) : <Redirect to={AppRoute.LOGIN} />;
     }
-    return isAuth ? <Redirect to={AppRoute.ROOT} /> : render(routeProps);
+    return isAuth ? history.goBack() : render(routeProps);
   };
 
   return (

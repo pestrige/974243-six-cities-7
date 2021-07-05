@@ -7,6 +7,7 @@ import { createApi } from '../services/api';
 
 const api = createApi(
   () => store.dispatch(ActionCreator.unAuthorize()),
+  (message) => store.dispatch(ActionCreator.showToast(message)),
 );
 
 export const store = createStore(

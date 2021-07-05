@@ -99,3 +99,4 @@ Card.propTypes = {
   handleMouseEnter: PropTypes.func,
   isActive: PropTypes.bool,
 };
+

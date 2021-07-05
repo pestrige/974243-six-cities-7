@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../../header/header';
@@ -9,14 +10,44 @@ import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
 import OfferLoading from './offer-loading';
+import OffersLoading from '../../offers-loading/offers-loading';
+
+import { fetchOffer, fetchClosestOffers } from '../../../store/api-action';
 import { getPersentage } from '../../../utils/common';
-import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT } from '../../../const';
-import reviewsProp from './reviews.prop';
+import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, HttpCode, AppRoute } from '../../../const';
 import offerProp from '../../card/card.prop';
 import offersProp from '../../offers/offers.prop';
+import { ActionCreator } from '../../../store/action';
 
-function Offer({id, currentOffer, closestOffers, reviews, isDataLoaded}) {
-  if (!isDataLoaded) {
+function Offer({
+  id,
+  currentOffer,
+  closestOffers,
+  isOfferLoaded,
+  isClosestOffersLoaded,
+  loadOffer,
+  onClearOfferData,
+  loadClosestOffers,
+  onClearError,
+  isError404 }) {
+
+  useEffect(() => {
+    loadOffer(id);
+    window.scrollTo(0, 0);
+    return onClearOfferData;
+  }, [id, loadOffer, onClearOfferData]);
+
+  useEffect(() => {
+    if (isOfferLoaded && !isError404) {
+      loadClosestOffers(id);
+    }
+  }, [id, isOfferLoaded, isError404, loadClosestOffers]);
+
+  if (isError404) {
+    return <Redirect to={AppRoute.NOT_FOUND} />;
+  }
+
+  if (!isOfferLoaded) {
     return <OfferLoading />;
   }
 
@@ -35,8 +66,6 @@ function Offer({id, currentOffer, closestOffers, reviews, isDataLoaded}) {
     host,
     description,
   } = currentOffer;
-
-  window.scrollTo(0, 0);
 
   return (
     <div className="page">
@@ -118,12 +147,13 @@ function Offer({id, currentOffer, closestOffers, reviews, isDataLoaded}) {
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} id={id}/>
+              <Reviews id={id} />
             </div>
           </div>
           <Map
             key={id}
-            offers={closestOffers}
+            offers={[...closestOffers, currentOffer]}
+            activeOffer={currentOffer}
             type={MapClass.OFFER}
             city={city}
           />
@@ -131,7 +161,11 @@ function Offer({id, currentOffer, closestOffers, reviews, isDataLoaded}) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <Offers offers={closestOffers} type={CardType.CLOSEST} />
+            {
+              isClosestOffersLoaded
+                ? <Offers offers={closestOffers} type={CardType.CLOSEST} />
+                : <div className="near-places__list places__list"><OffersLoading offersCount={CLOSEST_OFFERS_COUNT} /></div>
+            }
           </section>
         </div>
       </main>
@@ -143,18 +177,37 @@ Offer.propTypes = {
   id: PropTypes.number.isRequired,
   currentOffer: offerProp,
   closestOffers: offersProp,
-  reviews: reviewsProp,
-  isDataLoaded: PropTypes.bool.isRequired,
+  isOfferLoaded: PropTypes.bool.isRequired,
+  isError404: PropTypes.bool.isRequired,
+  isClosestOffersLoaded: PropTypes.bool.isRequired,
+  loadOffer: PropTypes.func.isRequired,
+  loadClosestOffers: PropTypes.func.isRequired,
+  onClearError: PropTypes.func.isRequired,
+  onClearOfferData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, {id}) => ({
-  reviews: state.reviews,
-  currentOffer: state.offers.find((offer) => offer.id === id),
-  closestOffers: state.offers
-    .filter((offer) => offer.city.name === (state.offers.find((item) => item.id === id)).city.name && offer.id !== id)
-    .slice(0, CLOSEST_OFFERS_COUNT),
-  isDataLoaded: state.isDataLoaded,
+const mapStateToProps = (state) => ({
+  currentOffer: state.currentOffer,
+  closestOffers: state.closestOffers,
+  isOfferLoaded: state.isDataLoaded.offer,
+  isClosestOffersLoaded: state.isDataLoaded.closestOffers,
+  isError404: state.error.status === HttpCode.NOT_FOUND,
+});
+
+const mapDispatchToState = (dispatch) => ({
+  loadOffer(id) {
+    dispatch(fetchOffer(id));
+  },
+  onClearOfferData() {
+    dispatch(ActionCreator.clearOfferData());
+  },
+  loadClosestOffers(id) {
+    dispatch(fetchClosestOffers(id));
+  },
+  onClearError() {
+    dispatch(ActionCreator.clearError());
+  },
 });
 
 export { Offer };
-export default connect(mapStateToProps, null)(Offer);
+export default connect(mapStateToProps, mapDispatchToState)(Offer);

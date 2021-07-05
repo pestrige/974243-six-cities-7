@@ -8,7 +8,7 @@ import { login } from '../../../store/api-action';
 import cityProp from '../../cities/city.prop';
 import authInfoProp from './authInfo.prop';
 
-function Login({ authInfo, city, onSubmit }) {
+function Login({ authInfo, city, onSubmit, isError }) {
   const { userData } = authInfo;
   const loginRef = useRef();
   const passwordRef = useRef();
@@ -30,7 +30,7 @@ function Login({ authInfo, city, onSubmit }) {
           <section className="login">
             <h1 className="login__title">Sign in</h1>
             <form
-              className="login__form form"
+              className={`login__form form ${isError ? 'shake' : ''}`}
               action=""
               method="post"
               onSubmit={handleSubmit}
@@ -80,11 +80,13 @@ Login.propTypes = {
   authInfo: authInfoProp,
   city: cityProp,
   onSubmit: PropTypes.func.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapPropsToState = (state) => ({
   authInfo: state.authInfo,
   city: state.city,
+  isError: state.toast.isShown,
 });
 
 const mapDispatchToProps = (dispatch) => ({
