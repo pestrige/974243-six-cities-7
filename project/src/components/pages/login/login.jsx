@@ -2,10 +2,10 @@ import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import { AppRoute } from '../../../const';
 import { login } from '../../../store/api-action';
-import cityProp from '../../cities/city.prop';
+import cityProp from '../../elements/cities/city.prop';
 import authInfoProp from './authInfo.prop';
 
 function Login({ authInfo, city, onSubmit, isError }) {

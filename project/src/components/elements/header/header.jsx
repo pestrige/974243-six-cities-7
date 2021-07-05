@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 import UserInfo from './user-info';
 import LoginLink from './login-link';
 import LogoutLink from './logout-link';
 import Toast from '../toast/toast';
-import authInfoProp from '../pages/login/authInfo.prop';
+import authInfoProp from '../../pages/login/authInfo.prop';
 
 function Header({ authInfo, isToastShown }) {
   const { status, userData } = authInfo;

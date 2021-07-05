@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OffersLoading from '../offers-loading/offers-loading';
 import Card from '../card/card';
-import { CardType } from '../../const';
+import { CardType } from '../../../const';
 import offersProp from './offers.prop';
 import offerProp from '../card/card.prop';
 

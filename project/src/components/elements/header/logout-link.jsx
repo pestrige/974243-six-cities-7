@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { logout } from '../../store/api-action';
+import { AppRoute } from '../../../const';
+import { logout } from '../../../store/api-action';
 
 function LogoutLink({onLogout}) {
   return (

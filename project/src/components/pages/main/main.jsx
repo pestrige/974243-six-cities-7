@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import Empty from './empty';
-import Cities from '../../cities/cities';
-import Sort from '../../sort/sort';
-import Offers from '../../offers/offers';
-import Map from '../../map/map';
+import Cities from '../../elements/cities/cities';
+import Sort from '../../elements/sort/sort';
+import Offers from '../../elements/offers/offers';
+import Map from '../../elements/map/map';
 import { sortOffers } from '../../../utils/common';
-import offersProp from '../../offers/offers.prop';
-import cityProp from '../../cities/city.prop';
+import offersProp from '../../elements/offers/offers.prop';
+import cityProp from '../../elements/cities/city.prop';
 
 function Main({offers, city, isDataLoaded}) {
   const [activeOffer, setActiveOffer] = useState({});

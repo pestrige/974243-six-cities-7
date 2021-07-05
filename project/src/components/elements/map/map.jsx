@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import offersProp from '../../offers/offers.prop';
+import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import { useMap } from '../../../hooks/useMap';
 import { MapClass } from '../../../const';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../const';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import { ActionCreator } from '../../../store/action';
 
 function NotFound ({onClearError}) {

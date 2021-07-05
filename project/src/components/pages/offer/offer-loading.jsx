@@ -1,6 +1,6 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 
 export default function OfferLoading() {
   return (

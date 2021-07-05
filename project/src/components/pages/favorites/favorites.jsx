@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Header from '../../header/header';
+import Header from '../../elements/header/header';
 import City from './city';
 import Empty from './empty';
-import offersProp from '../../offers/offers.prop';
+import offersProp from '../../elements/offers/offers.prop';
 import { AppRoute } from '../../../const';
 import { createOffersMap } from '../../../utils/common';
 

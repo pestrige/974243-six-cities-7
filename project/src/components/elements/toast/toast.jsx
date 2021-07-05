@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { ActionCreator } from '../../../store/action';
 const SHOW_TIME = 5000;
 
 function Toast({message, isShown, onHide}) {

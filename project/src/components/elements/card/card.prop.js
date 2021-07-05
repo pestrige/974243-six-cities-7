@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { OfferType } from '../../const';
+import { OfferType } from '../../../const';
 
 export default PropTypes.oneOfType([
   PropTypes.shape({}),

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import SortItem from './sort-item';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
-import { SortType } from '../../const';
+import { ActionCreator } from '../../../store/action';
+import { SortType } from '../../../const';
 
 const rotateArrow = (isOpen) => (
   isOpen ? {transform: 'rotate(180deg)', top: '35%'} : {}

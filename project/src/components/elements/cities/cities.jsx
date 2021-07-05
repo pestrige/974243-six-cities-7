@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import City from './city';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import City from './city';
+import { ActionCreator } from '../../../store/action';
 import cityProp from './city.prop';
 
 function Cities({cities, city, onChange}) {

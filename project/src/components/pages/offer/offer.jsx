@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Header from '../../header/header';
-import Offers from '../../offers/offers';
-import Map from '../../map/map';
+import Header from '../../elements/header/header';
+import Offers from '../../elements/offers/offers';
+import Map from '../../elements/map/map';
 import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
 import OfferLoading from './offer-loading';
-import OffersLoading from '../../offers-loading/offers-loading';
+import OffersLoading from '../../elements/offers-loading/offers-loading';
 
 import { fetchOffer, fetchClosestOffers } from '../../../store/api-action';
 import { getPersentage } from '../../../utils/common';
 import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, HttpCode, AppRoute } from '../../../const';
-import offerProp from '../../card/card.prop';
-import offersProp from '../../offers/offers.prop';
+import offerProp from '../../elements/card/card.prop';
+import offersProp from '../../elements/offers/offers.prop';
 import { ActionCreator } from '../../../store/action';
 
 function Offer({

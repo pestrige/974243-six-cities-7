@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../../const';
 
 export default function City({isActive, name, onChange}) {
   return (

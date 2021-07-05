@@ -7,7 +7,7 @@ import Login from '../pages/login/login';
 import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import NotFound from '../pages/not-found/not-found';
-import PrivateRoute from '../private-route/private-route';
+import PrivateRoute from '../elements/private-route/private-route';
 
 export default function App() {
   return (
@@ -31,7 +31,7 @@ export default function App() {
           exact path={`${AppRoute.OFFER}/:id`}
           render={({match}) => <Offer id={+match.params.id} />}
         />
-        <Route path={`${AppRoute.NOT_FOUND}`}>
+        <Route path={AppRoute.NOT_FOUND}>
           <NotFound />
         </Route>
         <Route>
