@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ReviewsLoading from './reviews-loading';
-import Review from './review';
+import ReviewsList from './reviews-list';
 import Form from './form';
 
 import { fetchReviews } from '../../../store/api-action';
@@ -24,11 +24,7 @@ function Reviews({reviews, id, isAuth, isDataLoaded, loadReviews}) {
       <h2 className="reviews__title">
         Reviews · <span className="reviews__amount">{reviews.length}</span>
       </h2>
-      <ul className="reviews__list">
-        {
-          reviews.map((review) => <Review key={review.id} review={review} />)
-        }
-      </ul>
+      <ReviewsList reviews={reviews} />
       {
         isAuth && <Form offerID={id} />
       }

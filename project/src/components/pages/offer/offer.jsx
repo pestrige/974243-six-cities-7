@@ -28,7 +28,6 @@ function Offer({
   loadOffer,
   onClearOfferData,
   loadClosestOffers,
-  onClearError,
   isError404 }) {
 
   useEffect(() => {
@@ -182,7 +181,6 @@ Offer.propTypes = {
   isClosestOffersLoaded: PropTypes.bool.isRequired,
   loadOffer: PropTypes.func.isRequired,
   loadClosestOffers: PropTypes.func.isRequired,
-  onClearError: PropTypes.func.isRequired,
   onClearOfferData: PropTypes.func.isRequired,
 };
 
@@ -203,9 +201,6 @@ const mapDispatchToState = (dispatch) => ({
   },
   loadClosestOffers(id) {
     dispatch(fetchClosestOffers(id));
-  },
-  onClearError() {
-    dispatch(ActionCreator.clearError());
   },
 });
 
