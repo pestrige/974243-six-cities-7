@@ -1,6 +1,14 @@
 export const CLOSEST_OFFERS_COUNT = 3;
 export const MAX_REVIEWS = 10;
 
+export const StoreNameSpace = {
+  DATA: 'DATA',
+  APP: 'APP',
+  AUTH: 'AUTH',
+  ERROR: 'ERROR',
+  FORM: 'FORM',
+};
+
 export const AppRoute = {
   ROOT: '/',
   LOGIN: '/login',

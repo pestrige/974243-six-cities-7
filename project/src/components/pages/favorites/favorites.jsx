@@ -1,15 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Header from '../../elements/header/header';
 import City from './city';
 import Empty from './empty';
-import offersProp from '../../elements/offers/offers.prop';
 import { AppRoute } from '../../../const';
-import { createOffersMap } from '../../../utils/common';
+import { getFavoriteOffers, getFavOffersMap } from '../../../store/selectors';
 
-function Favorites({ favoritesOffers, offersMap }) {
+function Favorites() {
+  const favoritesOffers = useSelector(getFavoriteOffers);
+  const offersMap = useSelector(getFavOffersMap);
   const isEmpty = favoritesOffers.length === 0;
 
   return (
@@ -48,15 +48,5 @@ function Favorites({ favoritesOffers, offersMap }) {
   );
 }
 
-Favorites.propTypes = {
-  favoritesOffers: offersProp,
-  offersMap: PropTypes.array,
-};
-
-const mapStateToProps = (state) => ({
-  favoritesOffers: state.offers.filter((offer) => offer.isFavorite),
-  offersMap: createOffersMap(state.offers),
-});
-
 export { Favorites };
-export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;

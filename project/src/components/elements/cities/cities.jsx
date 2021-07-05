@@ -1,11 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import City from './city';
-import { ActionCreator } from '../../../store/action';
-import cityProp from './city.prop';
+import { changeCity } from '../../../store/action';
+import { getActiveCity, getCities } from '../../../store/selectors';
 
-function Cities({cities, city, onChange}) {
+function Cities() {
+  const city = useSelector(getActiveCity);
+  const cities = useSelector(getCities);
+  const dispatch = useDispatch();
 
   return (
     <section className="locations container">
@@ -15,7 +17,7 @@ function Cities({cities, city, onChange}) {
             key={item.name}
             isActive={item.name === city.name}
             name={item.name}
-            onChange = {onChange}
+            onChange = {(payload) => dispatch(changeCity(payload))}
           />
         )) }
       </ul>
@@ -23,22 +25,5 @@ function Cities({cities, city, onChange}) {
   );
 }
 
-Cities.propTypes = {
-  city: cityProp,
-  cities: PropTypes.arrayOf(cityProp),
-  onChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  cities: state.cities,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
 export { Cities };
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default Cities;

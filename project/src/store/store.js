@@ -1,18 +1,19 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { ActionCreator } from './action';
-import { reducer } from './reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { unAuthorize, showToast } from './action';
+import rootReduser from './root-reduser';
 import { createApi } from '../services/api';
 
 const api = createApi(
-  () => store.dispatch(ActionCreator.unAuthorize()),
-  (message) => store.dispatch(ActionCreator.showToast(message)),
+  () => store.dispatch(unAuthorize()),
+  (message) => store.dispatch(showToast(message)),
 );
 
-export const store = createStore(
-  reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-  ),
-);
+export const store = configureStore({
+  reducer: rootReduser,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    thunk: {
+      extraArgument: api,
+    },
+    serializableCheck: false,
+  }),
+});

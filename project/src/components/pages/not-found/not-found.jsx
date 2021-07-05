@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import Header from '../../elements/header/header';
-import { ActionCreator } from '../../../store/action';
+import { clearError } from '../../../store/action';
 
-function NotFound ({onClearError}) {
+function NotFound () {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
-  useEffect(() => onClearError(), [pathname, onClearError]);
+
+  useEffect(() => dispatch(clearError()), [pathname, dispatch]);
 
   return (
     <div className="page page--gray page--main">
@@ -36,15 +37,5 @@ function NotFound ({onClearError}) {
   );
 }
 
-NotFound.propTypes = {
-  onClearError: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onClearError() {
-    dispatch(ActionCreator.clearError());
-  },
-});
-
 export { NotFound };
-export default connect(null, mapDispatchToProps)(NotFound);
+export default NotFound;

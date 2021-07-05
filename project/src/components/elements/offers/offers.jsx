@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import OffersLoading from '../offers-loading/offers-loading';
 import Card from '../card/card';
 import { CardType } from '../../../const';
+import { getIsOffersLoaded } from '../../../store/selectors';
 import offersProp from './offers.prop';
 import offerProp from '../card/card.prop';
 
@@ -22,8 +23,8 @@ function Offers({
   offers,
   activeOffer = {},
   type = CardType.DEFAULT,
-  handleMouseEnter = null,
-  isDataLoaded }) {
+  handleMouseEnter = null }) {
+  const isDataLoaded = useSelector(getIsOffersLoaded);
 
   return (
     <div className={getClass(type)}>
@@ -54,12 +55,7 @@ Offers.propTypes = {
     PropTypes.oneOf([null]),
     PropTypes.func,
   ]),
-  isDataLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded.offers,
-});
-
 export { Offers };
-export default connect(mapStateToProps, null)(Offers);
+export default Offers;

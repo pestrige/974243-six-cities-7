@@ -1,25 +1,27 @@
 import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../../elements/header/header';
 import { AppRoute } from '../../../const';
 import { login } from '../../../store/api-action';
-import cityProp from '../../elements/cities/city.prop';
-import authInfoProp from './authInfo.prop';
+import { getActiveCity, getAuthInfo, getIsToastShown } from '../../../store/selectors';
 
-function Login({ authInfo, city, onSubmit, isError }) {
-  const { userData } = authInfo;
+function Login() {
+  const { userData } = useSelector(getAuthInfo);
+  const city = useSelector(getActiveCity);
+  const isError = useSelector(getIsToastShown);
+  const dispatch = useDispatch();
+
   const loginRef = useRef();
   const passwordRef = useRef();
 
   const email = userData?.email || '';
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -76,24 +78,5 @@ function Login({ authInfo, city, onSubmit, isError }) {
   );
 }
 
-Login.propTypes = {
-  authInfo: authInfoProp,
-  city: cityProp,
-  onSubmit: PropTypes.func.isRequired,
-  isError: PropTypes.bool.isRequired,
-};
-
-const mapPropsToState = (state) => ({
-  authInfo: state.authInfo,
-  city: state.city,
-  isError: state.toast.isShown,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
 export { Login };
-export default connect(mapPropsToState, mapDispatchToProps)(Login);
+export default Login;

@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../../store/action';
+import { useSelector, useDispatch } from 'react-redux';
+import { hideToast } from '../../../store/action';
+import { getIsToastShown, getToastMessage } from '../../../store/selectors';
 const SHOW_TIME = 5000;
 
-function Toast({message, isShown, onHide}) {
+function Toast() {
+  const message = useSelector(getToastMessage);
+  const isShown = useSelector(getIsToastShown);
+  const dispatch = useDispatch();
   const {pathname} = useLocation();
 
   useEffect(() => {
     if (isShown) {
-      return () => onHide();
+      return () => dispatch(hideToast());
     }
-  }, [isShown, pathname, onHide]); // удаляем тост, если ушли со страницы
+  }, [isShown, pathname, dispatch]); // удаляем тост, если ушли со страницы
 
-  useEffect(() => setTimeout(() => onHide(), SHOW_TIME));
+  useEffect(() => setTimeout(() => dispatch(hideToast()), SHOW_TIME));
 
   return isShown && (
     <div className="toast-item">
@@ -25,22 +28,5 @@ function Toast({message, isShown, onHide}) {
   );
 }
 
-Toast.propTypes = {
-  message: PropTypes.string.isRequired,
-  isShown: PropTypes.bool.isRequired,
-  onHide: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  message: state.toast.message,
-  isShown: state.toast.isShown,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onHide() {
-    dispatch(ActionCreator.hideToast());
-  },
-});
-
 export { Toast };
-export default connect(mapStateToProps, mapDispatchToProps)(Toast);
+export default Toast;
