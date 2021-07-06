@@ -41,14 +41,11 @@ export const sortOffers = (offers, cityName, type = SortType.DEFAULT.name) => {
 };
 
 export const createOffersMap = (offers) => {
-  const offersMap = new Map();
-  offers
-    .filter((offer) => offer.isFavorite)
-    .forEach((offer) => {
-      const cityName = offer.city.name;
-      const value = (offersMap.get(cityName) || []);
-      value.push(offer);
-      offersMap.set(cityName, value);
-    });
-  return [...offersMap.entries()];
+  const map = offers.reduce((acc, offer) => {
+    acc[offer.city.name] = acc[offer.city.name]
+      ? [...acc[offer.city.name], offer]
+      : [offer];
+    return acc;
+  }, {});
+  return Object.entries(map);
 };

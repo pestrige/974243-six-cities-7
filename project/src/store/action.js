@@ -10,6 +10,8 @@ export const ActionType = {
   LOAD_OFFER: 'data/loadOffer',
   LOAD_REVIEWS: 'data/loadReviews',
   LOAD_CLOSEST_OFFERS: 'data/loadClosestOffers',
+  LOAD_FAVORITE_OFFERS: 'data/loadFavoriteOffers',
+  UPDATE_OFFERS: 'data/updateOffers',
   CLEAR_OFFER_DATA: 'data/clearOfferData',
   CLEAR_FORM: 'data/clearForm',
   SET_SENDING_FLAG: 'data/setSendingFlag',
@@ -23,6 +25,8 @@ export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({pay
 export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({payload: offer}));
 export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({payload: reviews}));
 export const loadClosestOffers = createAction(ActionType.LOAD_CLOSEST_OFFERS, (offers) => ({payload: offers}));
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (offers) => ({payload: offers}));
+export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({payload: offer}));
 export const clearOfferData = createAction(ActionType.CLEAR_OFFER_DATA);
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (cityName) => ({payload: cityName}));
