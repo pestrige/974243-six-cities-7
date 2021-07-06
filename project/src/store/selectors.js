@@ -2,8 +2,7 @@ import { AuthorizationStatus, StoreNameSpace, HttpCode, MAX_REVIEWS } from '../c
 import { sortOffers, createOffersMap } from '../utils/common';
 
 export const getOffers = ({DATA, APP}) => sortOffers(DATA.offers, APP.city.name, APP.sortType.name);
-export const getFavoriteOffers = ({DATA}) => DATA.offers.filter((offer) => offer.isFavorite);
-export const getFavOffersMap = ({DATA}) => createOffersMap(DATA.offers);
+export const getFavoritesOffersMap = ({DATA}) => createOffersMap(DATA.favoriteOffers);
 export const getCurrentOffer = ({DATA}) => DATA.currentOffer;
 export const getClosestOffers = ({DATA}) => DATA.closestOffers;
 export const getIsOffersLoaded = ({DATA}) => DATA.isDataLoaded.offers;

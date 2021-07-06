@@ -11,10 +11,11 @@ import Good from './good';
 import Reviews from './reviews';
 import OfferLoading from './offer-loading';
 import OffersLoading from '../../elements/offers-loading/offers-loading';
+import FavoriteButton from '../../elements/favorite-button/favorite-button';
 
 import { fetchOffer, fetchClosestOffers } from '../../../store/api-action';
 import { getPersentage } from '../../../utils/common';
-import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, AppRoute } from '../../../const';
+import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, AppRoute, FavoriteButtonType } from '../../../const';
 import { clearOfferData } from '../../../store/action';
 import { getCurrentOffer, getClosestOffers, getIsOfferLoaded, getIsClosestOffersLoaded, getIsError404 } from '../../../store/selectors';
 
@@ -80,12 +81,7 @@ function Offer({id}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
-                  <svg className="property__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton id={id} isFavorite={isFavorite} type={FavoriteButtonType.OFFER} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

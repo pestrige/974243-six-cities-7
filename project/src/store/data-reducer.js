@@ -1,16 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadOffers, loadOffer, loadReviews, loadClosestOffers, clearOfferData } from './action';
+import { loadOffers, loadOffer, loadReviews, loadClosestOffers, loadFavoriteOffers, updateOffers, clearOfferData } from './action';
 
 const initialState = {
   offers: [],
   currentOffer: {},
   reviews: [],
   closestOffers: [],
+  favoriteOffers: [],
   isDataLoaded: {
     offers: false,
     offer: false,
     reviews: false,
     closestOffers: false,
+    favoriteOffers: false,
   },
 };
 
@@ -31,6 +33,14 @@ export const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadClosestOffers, (state, action) => {
       state.closestOffers = action.payload;
       state.isDataLoaded.closestOffers = true;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+      state.isDataLoaded.favoriteOffers = true;
+    })
+    .addCase(updateOffers, (state, {payload}) => {
+      state.offers = state.offers.map((offer) => offer.id === payload.id ? payload : offer);
+      state.favoriteOffers = state.offers.filter((offer) => offer.isFavorite);
     })
     .addCase(clearOfferData, (state) => {
       state.currentOffer = [];

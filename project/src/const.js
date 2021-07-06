@@ -23,6 +23,7 @@ export const ApiRoute ={
   LOGOUT: '/logout',
   REVIEWS: '/comments',
   CLOSEST: 'nearby',
+  FAVORITE: '/favorite',
 };
 
 export const HttpCode = {
@@ -48,6 +49,19 @@ export const CardType = {
   DEFAULT: 'cities',
   CLOSEST: 'near-places',
   FAVORITE: 'favorites',
+};
+
+export const FavoriteButtonType = {
+  DEFAULT: {
+    name: 'place-card',
+    width: 18,
+    height: 19,
+  },
+  OFFER: {
+    name: 'property',
+    width: 31,
+    height: 33,
+  },
 };
 
 export const SortType = {
