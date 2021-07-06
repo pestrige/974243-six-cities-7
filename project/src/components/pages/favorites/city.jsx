@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Offers from '../../elements/offers/offers';
@@ -10,9 +10,9 @@ import { changeCity } from '../../../store/action';
 export default function City({cityName, offers}) {
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    dispatch(changeCity(cityName));
-  };
+  const handleClick = useCallback(
+    () => dispatch(changeCity(cityName)),
+    [dispatch, cityName]);
 
   return (
     <li className="favorites__locations-items">
