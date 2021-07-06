@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import SortItem from './sort-item';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
-import { SortType } from '../../const';
+import { useSelector, useDispatch } from 'react-redux';
+import { sort } from '../../../store/action';
+import { getSortType } from '../../../store/selectors';
+import { SortType } from '../../../const';
 
 const rotateArrow = (isOpen) => (
   isOpen ? {transform: 'rotate(180deg)', top: '35%'} : {}
 );
 
-function Sort({sortType, onSort}) {
+function Sort() {
+  const sortType = useSelector(getSortType);
+  const dispatch = useDispatch();
+
   const [isSortOpen, setIsSortOpen] = useState(false);
   const handleClick = (payload) => {
     setIsSortOpen(false);
-    onSort(payload);
+    dispatch(sort(payload));
   };
 
   return (
@@ -50,23 +53,5 @@ function Sort({sortType, onSort}) {
   );
 }
 
-Sort.propTypes = {
-  sortType: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  onSort: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  sortType: state.sortType,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSort(sortType) {
-    dispatch(ActionCreator.sort(sortType));
-  },
-});
-
 export { Sort };
-export default connect(mapStateToProps, mapDispatchToProps)(Sort);
+export default Sort;

@@ -1,17 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../../const';
 import UserInfo from './user-info';
 import LoginLink from './login-link';
 import LogoutLink from './logout-link';
 import Toast from '../toast/toast';
-import authInfoProp from '../pages/login/authInfo.prop';
+import { getIsAuth, getIsToastShown, getAuthInfo } from '../../../store/selectors';
 
-function Header({ authInfo, isToastShown }) {
-  const { status, userData } = authInfo;
-  const isLogin = status === AuthorizationStatus.AUTH;
+function Header() {
+  const isAuth = useSelector(getIsAuth);
+  const isToastShown = useSelector(getIsToastShown);
+  const { userData } = useSelector(getAuthInfo);
 
   return (
     <header className="header">
@@ -25,10 +25,10 @@ function Header({ authInfo, isToastShown }) {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                isLogin && <UserInfo userData={userData}/>
+                isAuth && <UserInfo userData={userData}/>
               }
               <li className="header__nav-item">
-                { isLogin ? <LogoutLink /> : <LoginLink />}
+                { isAuth ? <LogoutLink /> : <LoginLink />}
               </li>
             </ul>
           </nav>
@@ -39,15 +39,5 @@ function Header({ authInfo, isToastShown }) {
   );
 }
 
-Header.propTypes = {
-  authInfo: authInfoProp,
-  isToastShown: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authInfo: state.authInfo,
-  isToastShown: state.toast.isShown,
-});
-
 export { Header };
-export default connect(mapStateToProps, null)(Header);
+export default Header;

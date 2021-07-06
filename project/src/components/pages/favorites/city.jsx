@@ -1,8 +1,8 @@
 import React from 'react';
-import Offers from '../../offers/offers';
+import Offers from '../../elements/offers/offers';
 import { CardType } from '../../../const';
 import PropTypes from 'prop-types';
-import offersProp from '../../offers/offers.prop';
+import offersProp from '../../elements/offers/offers.prop';
 
 export default function City({cityName, offers}) {
   return (

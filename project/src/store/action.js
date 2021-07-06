@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'app/changeCity',
   SORT: 'app/sort',
@@ -17,64 +19,24 @@ export const ActionType = {
   UNAUTHORIZE: 'user/unAuthorize',
 };
 
-export const ActionCreator = {
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
-  loadOffer: (offer) => ({
-    type: ActionType.LOAD_OFFER,
-    payload: offer,
-  }),
-  loadReviews: (reviews) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload: reviews,
-  }),
-  loadClosestOffers: (offers) => ({
-    type: ActionType.LOAD_CLOSEST_OFFERS,
-    payload: offers,
-  }),
-  clearOfferData: () => ({
-    type: ActionType.CLEAR_OFFER_DATA,
-  }),
-  changeCity: (cityName) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: cityName,
-  }),
-  sort: (sortType) => ({
-    type: ActionType.SORT,
-    payload: sortType,
-  }),
-  authorize: (authInfo) => ({
-    type: ActionType.AUTHORIZE,
-    payload: authInfo,
-  }),
-  unAuthorize: () => ({
-    type: ActionType.UNAUTHORIZE,
-  }),
-  setSendingFlag: (value) => ({
-    type: ActionType.SET_SENDING_FLAG,
-    payload: value,
-  }),
-  setForm: (data) => ({
-    type: ActionType.SET_FORM,
-    payload: data,
-  }),
-  clearForm: () => ({
-    type: ActionType.CLEAR_FORM,
-  }),
-  showToast: (message) => ({
-    type: ActionType.SHOW_TOAST,
-    payload: message,
-  }),
-  hideToast: () => ({
-    type: ActionType.HIDE_TOAST,
-  }),
-  addError: (error) => ({
-    type: ActionType.ADD_ERROR,
-    payload: error,
-  }),
-  clearError: () => ({
-    type: ActionType.CLEAR_ERROR,
-  }),
-};
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({payload: offers}));
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({payload: offer}));
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({payload: reviews}));
+export const loadClosestOffers = createAction(ActionType.LOAD_CLOSEST_OFFERS, (offers) => ({payload: offers}));
+export const clearOfferData = createAction(ActionType.CLEAR_OFFER_DATA);
+
+export const changeCity = createAction(ActionType.CHANGE_CITY, (cityName) => ({payload: cityName}));
+export const sort = createAction(ActionType.SORT, (sortType) => ({payload: sortType}));
+
+export const authorize = createAction(ActionType.AUTHORIZE, (authInfo) => ({payload: authInfo}));
+export const unAuthorize = createAction(ActionType.UNAUTHORIZE);
+
+export const setSendingFlag = createAction(ActionType.SET_SENDING_FLAG, (value) => ({payload: value}));
+export const setForm = createAction(ActionType.SET_FORM, (data) => ({payload: data}));
+export const clearForm = createAction(ActionType.CLEAR_FORM);
+
+export const showToast = createAction(ActionType.SHOW_TOAST, (message) => ({payload: message}));
+export const hideToast = createAction(ActionType.HIDE_TOAST);
+
+export const addError = createAction(ActionType.ADD_ERROR, (error) => ({payload: error}));
+export const clearError = createAction(ActionType.CLEAR_ERROR);

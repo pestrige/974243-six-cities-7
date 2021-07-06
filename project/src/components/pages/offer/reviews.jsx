@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ReviewsLoading from './reviews-loading';
-import Review from './review';
+import ReviewsList from './reviews-list';
 import Form from './form';
 
 import { fetchReviews } from '../../../store/api-action';
-import { AuthorizationStatus, MAX_REVIEWS } from '../../../const';
-import reviewsProp from './reviews.prop';
+import { getIsAuth, getReviews, getIsReviewsLoaded } from '../../../store/selectors';
 
-function Reviews({reviews, id, isAuth, isDataLoaded, loadReviews}) {
+function Reviews({id}) {
+  const reviews = useSelector(getReviews);
+  const isDataLoaded = useSelector(getIsReviewsLoaded);
+  const isAuth = useSelector(getIsAuth);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    loadReviews(id);
-  }, [loadReviews, id]);
+    dispatch(fetchReviews(id));
+  }, [dispatch, id]);
 
   if (!isDataLoaded) {
     return <ReviewsLoading />;
@@ -24,11 +28,7 @@ function Reviews({reviews, id, isAuth, isDataLoaded, loadReviews}) {
       <h2 className="reviews__title">
         Reviews · <span className="reviews__amount">{reviews.length}</span>
       </h2>
-      <ul className="reviews__list">
-        {
-          reviews.map((review) => <Review key={review.id} review={review} />)
-        }
-      </ul>
+      <ReviewsList reviews={reviews} />
       {
         isAuth && <Form offerID={id} />
       }
@@ -37,24 +37,8 @@ function Reviews({reviews, id, isAuth, isDataLoaded, loadReviews}) {
 }
 
 Reviews.propTypes = {
-  reviews: reviewsProp,
   id: PropTypes.number.isRequired,
-  isAuth: PropTypes.bool.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  loadReviews: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.reviews.slice(0, MAX_REVIEWS),
-  isAuth: state.authInfo.status === AuthorizationStatus.AUTH,
-  isDataLoaded: state.isDataLoaded.reviews,
-});
-
-const mapDispatchToState = (dispatch) => ({
-  loadReviews(id) {
-    dispatch(fetchReviews(id));
-  },
-});
-
 export { Reviews };
-export default connect(mapStateToProps, mapDispatchToState)(Reviews);
+export default Reviews;

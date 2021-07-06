@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SortType } from '../../const';
+import { SortType } from '../../../const';
 
 export default function SortItem({type, isActive, handleClick}) {
   return (

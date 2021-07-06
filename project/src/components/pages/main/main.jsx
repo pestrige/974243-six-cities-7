@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Header from '../../header/header';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Header from '../../elements/header/header';
 import Empty from './empty';
-import Cities from '../../cities/cities';
-import Sort from '../../sort/sort';
-import Offers from '../../offers/offers';
-import Map from '../../map/map';
-import { sortOffers } from '../../../utils/common';
-import offersProp from '../../offers/offers.prop';
-import cityProp from '../../cities/city.prop';
+import Cities from '../../elements/cities/cities';
+import Sort from '../../elements/sort/sort';
+import Offers from '../../elements/offers/offers';
+import Map from '../../elements/map/map';
 
-function Main({offers, city, isDataLoaded}) {
+import { getOffers, getActiveCity, getIsOffersLoaded } from '../../../store/selectors';
+import { sort } from '../../../store/action';
+import { SortType } from '../../../const';
+
+function Main() {
+  const offers = useSelector(getOffers);
+  const city = useSelector(getActiveCity);
+  const isDataLoaded = useSelector(getIsOffersLoaded);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(sort(SortType.DEFAULT)), [dispatch]);
+
   const [activeOffer, setActiveOffer] = useState({});
   const isOffers = offers.length;
 
@@ -65,23 +72,7 @@ function Main({offers, city, isDataLoaded}) {
   );
 }
 
-Main.propTypes = {
-  offers: offersProp,
-  city: cityProp,
-  sortType: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  isDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: sortOffers(state.offers, state.city.name, state.sortType.name) ,
-  isDataLoaded: state.isDataLoaded.offers,
-});
-
-export { Main }; // export for future tests
-export default connect(mapStateToProps, null)(Main);
+export { Main };
+export default Main;
 
 

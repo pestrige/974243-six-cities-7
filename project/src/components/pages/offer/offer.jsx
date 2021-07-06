@@ -1,47 +1,42 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Header from '../../header/header';
-import Offers from '../../offers/offers';
-import Map from '../../map/map';
+import Header from '../../elements/header/header';
+import Offers from '../../elements/offers/offers';
+import Map from '../../elements/map/map';
 import Gallery from './gallery';
 import Good from './good';
 import Reviews from './reviews';
 import OfferLoading from './offer-loading';
-import OffersLoading from '../../offers-loading/offers-loading';
+import OffersLoading from '../../elements/offers-loading/offers-loading';
 
 import { fetchOffer, fetchClosestOffers } from '../../../store/api-action';
 import { getPersentage } from '../../../utils/common';
-import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, HttpCode, AppRoute } from '../../../const';
-import offerProp from '../../card/card.prop';
-import offersProp from '../../offers/offers.prop';
-import { ActionCreator } from '../../../store/action';
+import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, AppRoute } from '../../../const';
+import { clearOfferData } from '../../../store/action';
+import { getCurrentOffer, getClosestOffers, getIsOfferLoaded, getIsClosestOffersLoaded, getIsError404 } from '../../../store/selectors';
 
-function Offer({
-  id,
-  currentOffer,
-  closestOffers,
-  isOfferLoaded,
-  isClosestOffersLoaded,
-  loadOffer,
-  onClearOfferData,
-  loadClosestOffers,
-  onClearError,
-  isError404 }) {
+function Offer({id}) {
+  const currentOffer = useSelector(getCurrentOffer);
+  const closestOffers = useSelector(getClosestOffers);
+  const isOfferLoaded = useSelector(getIsOfferLoaded);
+  const isClosestOffersLoaded = useSelector(getIsClosestOffersLoaded);
+  const isError404 = useSelector(getIsError404);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    loadOffer(id);
+    dispatch(fetchOffer(id));
     window.scrollTo(0, 0);
-    return onClearOfferData;
-  }, [id, loadOffer, onClearOfferData]);
+    return dispatch(clearOfferData());
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (isOfferLoaded && !isError404) {
-      loadClosestOffers(id);
+      dispatch(fetchClosestOffers(id));
     }
-  }, [id, isOfferLoaded, isError404, loadClosestOffers]);
+  }, [id, dispatch, isOfferLoaded, isError404]);
 
   if (isError404) {
     return <Redirect to={AppRoute.NOT_FOUND} />;
@@ -175,39 +170,7 @@ function Offer({
 
 Offer.propTypes = {
   id: PropTypes.number.isRequired,
-  currentOffer: offerProp,
-  closestOffers: offersProp,
-  isOfferLoaded: PropTypes.bool.isRequired,
-  isError404: PropTypes.bool.isRequired,
-  isClosestOffersLoaded: PropTypes.bool.isRequired,
-  loadOffer: PropTypes.func.isRequired,
-  loadClosestOffers: PropTypes.func.isRequired,
-  onClearError: PropTypes.func.isRequired,
-  onClearOfferData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentOffer: state.currentOffer,
-  closestOffers: state.closestOffers,
-  isOfferLoaded: state.isDataLoaded.offer,
-  isClosestOffersLoaded: state.isDataLoaded.closestOffers,
-  isError404: state.error.status === HttpCode.NOT_FOUND,
-});
-
-const mapDispatchToState = (dispatch) => ({
-  loadOffer(id) {
-    dispatch(fetchOffer(id));
-  },
-  onClearOfferData() {
-    dispatch(ActionCreator.clearOfferData());
-  },
-  loadClosestOffers(id) {
-    dispatch(fetchClosestOffers(id));
-  },
-  onClearError() {
-    dispatch(ActionCreator.clearError());
-  },
-});
-
 export { Offer };
-export default connect(mapStateToProps, mapDispatchToState)(Offer);
+export default Offer;

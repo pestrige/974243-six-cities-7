@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { postReview } from '../../../store/api-action';
-import { ActionCreator } from '../../../store/action';
+import { setSendingFlag, setForm, clearForm } from '../../../store/action';
+import { getFormData, getIsSending, getIsToastShown } from '../../../store/selectors';
 
 const STARS_COUNT = 5;
 const MIN_COMMENT_LENGTH = 50;
@@ -27,21 +28,26 @@ const checkDisabled = (commentLength, rating, isSendingFlag) => !(
   !isSendingFlag
 );
 
-function Form({offerID, onSubmit, onSetSendingFlag, onSetForm, onClear, isSending, form, isToastShown}) {
-  useEffect(() => onClear(), [onClear, offerID]);
+function Form({offerID}) {
+  const form = useSelector(getFormData);
+  const isSending = useSelector(getIsSending);
+  const isToastShown = useSelector(getIsToastShown);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(clearForm()), [dispatch, offerID]);
 
   const handleChange = (evt) => {
     const {name, value} = evt.target;
-    onSetForm({
+    dispatch(setForm({
       ...form,
       [name]: name === InputName.RATING ? Number(value) : value,
-    });
+    }));
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit(offerID, form);
-    onSetSendingFlag(true);
+    dispatch(postReview(offerID, form));
+    dispatch(setSendingFlag(true));
   };
 
   return (
@@ -110,39 +116,8 @@ function Form({offerID, onSubmit, onSetSendingFlag, onSetForm, onClear, isSendin
 }
 
 Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onSetSendingFlag: PropTypes.func.isRequired,
-  onSetForm: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired,
   offerID: PropTypes.number.isRequired,
-  isSending: PropTypes.bool.isRequired,
-  form: PropTypes.shape({
-    rating: PropTypes.number,
-    comment: PropTypes.string,
-  }).isRequired,
-  isToastShown: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isSending: state.form.isSending,
-  form: state.form.data,
-  isToastShown: state.toast.isShown,
-});
-
-const mapDispatchToState = (dispatch) => ({
-  onSubmit(id, newReview) {
-    dispatch(postReview(id, newReview));
-  },
-  onSetSendingFlag(flag) {
-    dispatch(ActionCreator.setSendingFlag(flag));
-  },
-  onSetForm(data) {
-    dispatch(ActionCreator.setForm(data));
-  },
-  onClear() {
-    dispatch(ActionCreator.clearForm());
-  },
-});
-
 export { Form };
-export default connect(mapStateToProps, mapDispatchToState)(Form);
+export default Form;

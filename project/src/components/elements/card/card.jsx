@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute, OfferType, CardType } from '../../const';
-import { getPersentage } from '../../utils/common';
-import offerProp from './card.prop';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { AppRoute, OfferType, CardType } from '../../../const';
+import { getPersentage } from '../../../utils/common';
+import offerProp from './card.prop';
 
 const CardImageSize = {
   DEFAULT: {
