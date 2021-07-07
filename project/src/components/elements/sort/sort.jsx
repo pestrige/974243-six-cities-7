@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import SortItem from './sort-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { sort } from '../../../store/action';
@@ -54,4 +54,4 @@ function Sort() {
 }
 
 export { Sort };
-export default Sort;
+export default memo(Sort);

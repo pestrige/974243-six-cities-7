@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -17,7 +17,7 @@ const CardImageSize = {
   },
 };
 
-export default function Card({
+function Card({
   offer,
   cardType = CardType.DEFAULT,
   handleMouseEnter = null,
@@ -96,3 +96,5 @@ Card.propTypes = {
   isActive: PropTypes.bool,
 };
 
+export { Card };
+export default memo(Card);
