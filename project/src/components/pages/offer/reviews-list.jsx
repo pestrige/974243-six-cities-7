@@ -17,6 +17,7 @@ ReviewsList.propTypes = {
   reviews: reviewsProp,
 };
 
+export { ReviewsList };
 export default React.memo(ReviewsList, (prevProps, nextProps) => (
   prevProps.reviews.length === nextProps.reviews.length
 ));

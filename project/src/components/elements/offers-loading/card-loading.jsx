@@ -4,6 +4,7 @@ import ContentLoader from 'react-content-loader';
 export default function CardLoading() {
   return (
     <ContentLoader
+      data-testid={'card-loading'}
       speed={2}
       width={268}
       height={342}

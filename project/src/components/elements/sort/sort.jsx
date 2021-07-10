@@ -23,6 +23,7 @@ function Sort() {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span
+        data-testid={'sort-type-title'}
         className="places__sorting-type"
         tabIndex={0}
         onClick={() => setIsSortOpen(!isSortOpen)}

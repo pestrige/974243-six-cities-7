@@ -8,7 +8,7 @@ export default function LoginLink() {
       to={AppRoute.LOGIN}
       className="header__nav-link"
     >
-      <span className="header__signout">Sign in</span>
+      <span className="header__login">Sign in</span>
     </Link>
   );
 }

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { logout } from '../../../store/api-action';
 
-function LogoutLink() {
+
+export default function LogoutLink() {
   const dispatch = useDispatch();
   const onClick = useCallback(() => dispatch(logout()), [dispatch]);
 
@@ -18,6 +19,3 @@ function LogoutLink() {
     </Link>
   );
 }
-
-export { LogoutLink };
-export default LogoutLink;

@@ -53,7 +53,7 @@ function Card({
           <span>Premium</span>
         </div>
       }
-      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+      <div data-testid={`image-wrapper-${id}`} className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
           <img
             className="place-card__image"
@@ -64,7 +64,7 @@ function Card({
           />
         </Link>
       </div>
-      <div className={`${cardType}__card-info place-card__info`}>
+      <div data-testid={`card-info-${id}`} className={`${cardType}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -74,7 +74,7 @@ function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getPersentage(rating)}%`}} />
+            <span data-testid={`rating-${id}`} style={{width: `${getPersentage(rating)}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
