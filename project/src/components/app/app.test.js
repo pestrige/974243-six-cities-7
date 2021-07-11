@@ -4,28 +4,46 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {AppRoute} from '../../const';
+import { AppRoute } from '../../const';
 import App from './app';
 
-const cities = [
-  {name: 'Paris'},
-  {name: 'Cologne'},
-  {name: 'Brussels'},
-  {name: 'Amsterdam'},
-  {name: 'Hamburg'},
-  {name: 'Dusseldorf'},
-];
+jest.mock('../pages/favorites/favorites', () => {
+  const mockComponent = () => <>This is mock Favories Screen</>;
+  return {
+    __esModule: true,
+    default: mockComponent,
+  };
+});
+jest.mock('../pages/main/main', () => ({
+  __esModule: true,
+  default() {
+    return <>This is mock Main Screen</>;
+  },
+}));
+jest.mock('../pages/login/login', () => ({
+  __esModule: true,
+  default() {
+    return <>This is mock Login Screen</>;
+  },
+}));
+jest.mock('../pages/offer/offer', () => ({
+  __esModule: true,
+  default() {
+    return <>This is mock Offer Screen</>;
+  },
+}));
+jest.mock('../pages/not-found/not-found', () => ({
+  __esModule: true,
+  default() {
+    return <>This is mock NotFound Screen</>;
+  },
+}));
 
 const history = createMemoryHistory();
 const fakeStore = configureStore();
 const fakeStoreData = {
-  AUTH: {status: 'NO_AUTH', userData: {}},
-  DATA: {offers: [], isDataLoaded: {offers: true}},
-  APP: {cities, city: {name: 'Paris'}, sortType: {name: 'default', text: 'Popular'}},
-  ERROR: {toast: {isShown: false}},
-  FORM: {isSending: false},
+  AUTH: {status: 'NO_AUTH'},
 };
-const authData = {status: 'AUTH', userData: {email: 'test@test.com', avatarUrl: '/img/1.png'}};
 
 describe('App Routing', () => {
   it('should render Main screen when navigate to "/"', () => {
@@ -38,7 +56,7 @@ describe('App Routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Cities');
+    expect(screen.getByText('This is mock Main Screen')).toBeInTheDocument();
   });
 
   it('should render Login screen when navigate to "/login"', () => {
@@ -51,26 +69,22 @@ describe('App Routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Sign in');
+    expect(screen.getByText('This is mock Login Screen')).toBeInTheDocument();
   });
 
   it('should render Main screen when navigate to "/login" with successful authorization', () => {
     history.push(AppRoute.ROOT);
     history.push(AppRoute.LOGIN);
-    const newFakeStoreData = {
-      ...fakeStoreData,
-      AUTH: authData,
-    };
 
     render(
-      <Provider store={fakeStore(newFakeStoreData)}>
+      <Provider store={fakeStore({AUTH: {status: 'AUTH'}})}>
         <Router history={history}>
           <App />
         </Router>
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Cities');
+    expect(screen.getByText('This is mock Main Screen')).toBeInTheDocument();
   });
 
   it('should render Login screen when navigate to "/favorites" with no authorization', () => {
@@ -84,7 +98,34 @@ describe('App Routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Sign in');
+    expect(screen.getByText('This is mock Login Screen')).toBeInTheDocument();
+  });
+
+  it('should render Favorite screen when navigate to "/favorites" with successful authorization', () => {
+    history.push(AppRoute.FAVORITES);
+
+    render(
+      <Provider store={fakeStore({AUTH: {status: 'AUTH'}})}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText('This is mock Favories Screen')).toBeInTheDocument();
+  });
+
+  it('should render Offer screen when navigate to /offer/:id route', () => {
+    history.push(`${AppRoute.OFFER}/1`);
+    render(
+      <Provider store={fakeStore(fakeStoreData)}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText('This is mock Offer Screen')).toBeInTheDocument();
   });
 
   it('should render 404 screen when navigate to "/404"', () => {
@@ -97,7 +138,7 @@ describe('App Routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Page not found');
+    expect(screen.getByText('This is mock NotFound Screen')).toBeInTheDocument();
   });
 
   it('should render 404 screen when navigate to non-existent route', () => {
@@ -110,6 +151,6 @@ describe('App Routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Page not found');
+    expect(screen.getByText('This is mock NotFound Screen')).toBeInTheDocument();
   });
 });

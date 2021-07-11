@@ -8,7 +8,7 @@ import { AppRoute } from '../../../const';
 import { getFavoritesOffersMap } from '../../../store/selectors';
 import { fetchFavorites } from '../../../store/api-action';
 
-function Favorites() {
+export default function Favorites() {
   const offersMap = useSelector(getFavoritesOffersMap);
   const isEmpty = offersMap.length === 0;
   const dispatch = useDispatch();
@@ -52,6 +52,3 @@ function Favorites() {
     </div>
   );
 }
-
-export { Favorites };
-export default Favorites;
