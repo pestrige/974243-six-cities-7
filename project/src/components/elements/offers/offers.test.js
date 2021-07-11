@@ -33,8 +33,7 @@ describe('component Offers', () => {
       </Provider>,
     );
 
-    const isCardsCountCorrect = screen.getAllByRole('article').length === offers.length;
-    expect(isCardsCountCorrect).toBeTruthy();
+    expect(screen.getAllByRole('article').length).toBe(offers.length);
     expect(screen.getByTestId('offers-container')).toHaveClass(`${type}__list places__list tabs__content`);
   });
 

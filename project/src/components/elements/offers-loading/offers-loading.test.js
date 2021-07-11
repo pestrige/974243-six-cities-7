@@ -7,7 +7,6 @@ describe('component OffersLoading', () => {
     const offersCount = 3;
     render(<OffersLoading offersCount={offersCount}/>);
 
-    const isCardsCountCorrect = screen.getAllByTestId('card-loading').length === offersCount;
-    expect(isCardsCountCorrect).toBeTruthy();
+    expect(screen.getAllByTestId('card-loading').length).toBe(offersCount);
   });
 });

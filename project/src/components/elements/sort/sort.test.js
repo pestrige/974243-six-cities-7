@@ -27,7 +27,6 @@ describe('component Sort', () => {
     expect(screen.getByText('Sort by')).toBeInTheDocument();
     expect(screen.getByTestId('sort-type-title')).toHaveTextContent(sortType.text);
     expect(screen.getByRole('list')).toHaveClass('places__options places__options--custom', {exact: true});
-    const sortItems = screen.getAllByRole('listitem');
-    expect(sortItems.length === sortTypesCount).toBeTruthy();
+    expect(screen.getAllByRole('listitem').length).toBe(sortTypesCount);
   });
 });

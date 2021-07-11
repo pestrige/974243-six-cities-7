@@ -9,7 +9,7 @@ describe('component Gallery', () => {
     render(<Gallery images={images} />);
 
     const imgElements = screen.getAllByRole('img');
-    expect(imgElements.length === images.length).toBeTruthy();
+    expect(imgElements.length).toBe(images.length);
     imgElements.forEach((img, i) => expect(img).toHaveAttribute('src', images[i]));
   });
 

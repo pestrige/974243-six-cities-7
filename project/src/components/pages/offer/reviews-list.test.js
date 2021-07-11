@@ -20,8 +20,7 @@ describe('component ReviewsList', () => {
 
     render(<ReviewsList reviews={fakeReviews} />);
 
-    const reviewElements = screen.getAllByRole('listitem');
-    expect(reviewElements.length === fakeReviews.length).toBeTruthy();
+    expect(screen.getAllByRole('listitem').length).toBe(fakeReviews.length);
     expect(screen.getByRole('list')).toHaveClass('reviews__list');
   });
 });

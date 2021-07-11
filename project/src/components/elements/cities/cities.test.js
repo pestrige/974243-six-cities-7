@@ -34,7 +34,6 @@ describe('Component Cities', () => {
       </Provider>,
     );
 
-    const isCityLinksCountCorrect = screen.getAllByRole('link').length === citiesCount;
-    expect(isCityLinksCountCorrect).toBeTruthy();
+    expect(screen.getAllByRole('link').length).toBe(citiesCount);
   });
 });
