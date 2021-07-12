@@ -19,7 +19,7 @@ const getClass = (type) => {
   }
 };
 
-function Offers({
+export default function Offers({
   offers,
   activeOffer = {},
   type = CardType.DEFAULT,
@@ -27,7 +27,7 @@ function Offers({
   const isDataLoaded = useSelector(getIsOffersLoaded);
 
   return (
-    <div className={getClass(type)}>
+    <div data-testid={'offers-container'} className={getClass(type)}>
       {
         !isDataLoaded
           ? <OffersLoading />
@@ -56,6 +56,3 @@ Offers.propTypes = {
     PropTypes.func,
   ]),
 };
-
-export { Offers };
-export default Offers;

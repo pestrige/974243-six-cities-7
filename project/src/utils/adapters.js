@@ -23,9 +23,15 @@ const adaptOfferToClient = (offer) => {
   return adaptedOffer;
 };
 
-export const adaptOffersToClient = (data) => Array.isArray(data)
-  ? data.map((offer) => adaptOfferToClient(offer))
-  : adaptOfferToClient(data);
+export const adaptOffersToClient = (data) => {
+  if (data?.fake) {
+    return data;
+  }
+
+  return Array.isArray(data)
+    ? data.map((offer) => adaptOfferToClient(offer))
+    : adaptOfferToClient(data);
+};
 
 const adaptReviewToClient = (review) => {
   const adaptedReview = {
@@ -42,14 +48,24 @@ const adaptReviewToClient = (review) => {
   return adaptedReview;
 };
 
-export const adaptReviewsToClient = (data) => Array.isArray(data)
-  ? data.map((review) => adaptReviewToClient(review))
-  : adaptReviewToClient(data);
+export const adaptReviewsToClient = (data) => {
+  if (data?.fake) {
+    return data;
+  }
 
-export const adaptUserDataToClient = (data) => ({
-  token: data.token,
-  email: data.email,
-  avatarUrl: data.avatar_url,
-});
+  return Array.isArray(data)
+    ? data.map((review) => adaptReviewToClient(review))
+    : adaptReviewToClient(data);
+};
+
+export const adaptUserDataToClient = (data) => (
+  data?.fake
+    ? data
+    : {
+      token: data.token,
+      email: data.email,
+      avatarUrl: data.avatar_url,
+    }
+);
 
 

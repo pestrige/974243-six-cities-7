@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../../elements/header/header';
-import Empty from './empty';
+import EmptyMain from './empty-main';
 import Cities from '../../elements/cities/cities';
 import Sort from '../../elements/sort/sort';
 import Offers from '../../elements/offers/offers';
@@ -11,7 +11,7 @@ import { getOffers, getActiveCity, getIsOffersLoaded } from '../../../store/sele
 import { sort } from '../../../store/action';
 import { SortType } from '../../../const';
 
-function Main() {
+export default function Main() {
   const offers = useSelector(getOffers);
   const city = useSelector(getActiveCity);
   const isDataLoaded = useSelector(getIsOffersLoaded);
@@ -23,7 +23,7 @@ function Main() {
   const isOffers = offers.length;
 
   return (
-    <div className={`page page--gray page--main ${isOffers ? '' : 'page__main--index-empty'}`}>
+    <div data-testid={'main-page'} className={`page page--gray page--main ${isOffers ? '' : 'page__main--index-empty'}`}>
       <Header />
 
       <main className="page__main page__main--index">
@@ -32,10 +32,10 @@ function Main() {
           <Cities />
         </div>
         <div className="cities">
-          <div className={`cities__places-container container ${isOffers ? '' : 'cities__places-container--empty'}`}>
+          <div data-testid={'places-container'} className={`cities__places-container container ${isOffers ? '' : 'cities__places-container--empty'}`}>
             {
               !isOffers && isDataLoaded
-                ? <Empty />
+                ? <EmptyMain cityName={city.name}/>
                 : (
                   <React.Fragment>
                     <section className="cities__places places">
@@ -71,8 +71,3 @@ function Main() {
     </div>
   );
 }
-
-export { Main };
-export default Main;
-
-

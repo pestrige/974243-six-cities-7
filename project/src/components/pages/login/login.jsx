@@ -6,7 +6,7 @@ import { AppRoute } from '../../../const';
 import { login } from '../../../store/api-action';
 import { getActiveCity, getAuthInfo, getIsToastShown } from '../../../store/selectors';
 
-function Login() {
+export default function Login() {
   const { userData } = useSelector(getAuthInfo);
   const city = useSelector(getActiveCity);
   const isError = useSelector(getIsToastShown);
@@ -30,7 +30,7 @@ function Login() {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title" data-testid="login-title">Sign in</h1>
             <form
               className={`login__form form ${isError ? 'shake' : ''}`}
               action=""
@@ -38,19 +38,21 @@ function Login() {
               onSubmit={handleSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
+                <label className="visually-hidden" htmlFor="email">E-mail</label>
                 <input
                   ref={loginRef}
+                  defaultValue={email}
                   className="login__input form__input"
                   type="email"
                   name="email"
                   placeholder="Email"
-                  defaultValue={email}
                   required
+                  id="email"
+                  data-testid="login"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+                <label className="visually-hidden" htmlFor="password">Password</label>
                 <input
                   ref={passwordRef}
                   className="login__input form__input"
@@ -58,9 +60,17 @@ function Login() {
                   name="password"
                   placeholder="Password"
                   required
+                  id="password"
+                  data-testid="password"
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                data-testid="login-button"
+              >
+                Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
@@ -77,6 +87,3 @@ function Login() {
     </div>
   );
 }
-
-export { Login };
-export default Login;

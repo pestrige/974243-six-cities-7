@@ -5,7 +5,7 @@ import { AppRoute } from '../../../const';
 import Header from '../../elements/header/header';
 import { clearError } from '../../../store/action';
 
-function NotFound () {
+export default function NotFound () {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
@@ -36,6 +36,3 @@ function NotFound () {
     </div>
   );
 }
-
-export { NotFound };
-export default NotFound;

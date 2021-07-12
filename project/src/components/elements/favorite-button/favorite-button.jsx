@@ -42,6 +42,7 @@ export default function FavoriteButton({
       disabled={isSending}
     >
       <svg
+        data-testid={`favorite-button-${id}`}
         className={`${name}__bookmark-icon`}
         width={width}
         height={height}

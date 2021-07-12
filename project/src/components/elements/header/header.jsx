@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { AppRoute } from '../../../const';
@@ -40,4 +40,4 @@ function Header() {
 }
 
 export { Header };
-export default Header;
+export default memo(Header);

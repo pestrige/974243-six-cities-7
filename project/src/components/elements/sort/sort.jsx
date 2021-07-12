@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import SortItem from './sort-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { sort } from '../../../store/action';
@@ -23,6 +23,7 @@ function Sort() {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span
+        data-testid={'sort-type-title'}
         className="places__sorting-type"
         tabIndex={0}
         onClick={() => setIsSortOpen(!isSortOpen)}
@@ -54,4 +55,4 @@ function Sort() {
 }
 
 export { Sort };
-export default Sort;
+export default memo(Sort);

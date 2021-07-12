@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-export default function OfferLoading() {
+export default function ReviewLoading() {
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
@@ -9,6 +9,7 @@ export default function OfferLoading() {
       </h2>
       <div className="reviews__list">
         <ContentLoader
+          data-testid={'reviews-preloader'}
           speed={2}
           width={613}
           height={130}

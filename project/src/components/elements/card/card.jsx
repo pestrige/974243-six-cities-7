@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -17,7 +17,7 @@ const CardImageSize = {
   },
 };
 
-export default function Card({
+function Card({
   offer,
   cardType = CardType.DEFAULT,
   handleMouseEnter = null,
@@ -53,7 +53,7 @@ export default function Card({
           <span>Premium</span>
         </div>
       }
-      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+      <div data-testid={`image-wrapper-${id}`} className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
           <img
             className="place-card__image"
@@ -64,7 +64,7 @@ export default function Card({
           />
         </Link>
       </div>
-      <div className={`${cardType}__card-info place-card__info`}>
+      <div data-testid={`card-info-${id}`} className={`${cardType}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -74,7 +74,7 @@ export default function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getPersentage(rating)}%`}} />
+            <span data-testid={`rating-${id}`} style={{width: `${getPersentage(rating)}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -96,3 +96,5 @@ Card.propTypes = {
   isActive: PropTypes.bool,
 };
 
+export { Card };
+export default memo(Card);

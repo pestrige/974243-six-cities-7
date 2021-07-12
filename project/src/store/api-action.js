@@ -16,15 +16,15 @@ import { getToken } from '../store/selectors';
 import { ApiRoute, AuthorizationStatus } from '../const';
 import { adaptOffersToClient, adaptReviewsToClient, adaptUserDataToClient } from '../utils/adapters';
 
-export const fetchOffers = () => (dispatch, getState, api) => {
+export const fetchOffers = () => (dispatch, getState, api) => (
   api.get(ApiRoute.OFFERS, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const offers = adaptOffersToClient(data);
       dispatch(loadOffers(offers));
-    });
-};
+    })
+);
 
-export const fetchOffer = (id) => (dispatch, getState, api) => {
+export const fetchOffer = (id) => (dispatch, getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}`, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const offer = adaptOffersToClient(data);
@@ -33,35 +33,35 @@ export const fetchOffer = (id) => (dispatch, getState, api) => {
     .catch(({response}) => dispatch(addError({
       status: response.status,
       text: response.statusText,
-    })));
-};
+    })))
+);
 
-export const fetchReviews = (id) => (dispatch, getState, api) => {
+export const fetchReviews = (id) => (dispatch, getState, api) => (
   api.get(`${ApiRoute.REVIEWS}/${id}`, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const reviews = adaptReviewsToClient(data);
       dispatch(loadReviews(reviews));
     })
-    .catch(({response}) => dispatch(showToast(`Error ${response.status}: ${response.statusText}`)));
-};
+    .catch(({response}) => dispatch(showToast(`Error ${response.status}: ${response.statusText}`)))
+);
 
-export const fetchClosestOffers = (id) => (dispatch, getState, api) => {
+export const fetchClosestOffers = (id) => (dispatch, getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}/${ApiRoute.CLOSEST}`, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const offers = adaptOffersToClient(data);
       dispatch(loadClosestOffers(offers));
-    });
-};
+    })
+);
 
-export const fetchFavorites = () => (dispatch, getState, api) => {
+export const fetchFavorites = () => (dispatch, getState, api) => (
   api.get(ApiRoute.FAVORITE, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const offers = adaptOffersToClient(data);
       dispatch(loadFavoriteOffers(offers));
-    });
-};
+    })
+);
 
-export const postReview = (id, comment) => (dispatch, getState, api) => {
+export const postReview = (id, comment) => (dispatch, getState, api) => (
   api.post(`${ApiRoute.REVIEWS}/${id}`, comment, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const reviews = adaptReviewsToClient(data);
@@ -72,10 +72,10 @@ export const postReview = (id, comment) => (dispatch, getState, api) => {
     .catch(({response}) => {
       dispatch(setSendingFlag(false));
       dispatch(showToast(`Error ${response.status}: ${response.statusText}`));
-    });
-};
+    })
+);
 
-export const switchFavorite = (id, isFavorite, isNeedToUpdateOffer) => (dispatch, getState, api) => {
+export const switchFavorite = (id, isFavorite, isNeedToUpdateOffer) => (dispatch, getState, api) => (
   api.post(`${ApiRoute.FAVORITE}/${id}/${+!isFavorite}`, {}, {headers: {'X-Token': getToken(getState())}})
     .then(({data}) => {
       const offer = adaptOffersToClient(data);
@@ -88,8 +88,8 @@ export const switchFavorite = (id, isFavorite, isNeedToUpdateOffer) => (dispatch
     .catch(({response}) => {
       dispatch(setSendingFlag(false));
       dispatch(showToast(`Error ${response.status}: ${response.statusText}`));
-    });
-};
+    })
+);
 
 export const checkAuth = () => (dispatch, getState, api) => {
   const token = getToken(getState());
