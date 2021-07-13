@@ -20,7 +20,7 @@ export default function Favorites() {
   return (
     <div className="page">
       <Header />
-      <main className={`${isEmpty && 'page__main--favorites-empty'} page__main page__main--favorites`}>
+      <main className={`${isEmpty ? 'page__main--favorites-empty' : ''} page__main page__main--favorites`}>
         <div className="page__favorites-container container">
           {
             isEmpty

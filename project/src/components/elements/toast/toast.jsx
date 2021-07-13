@@ -9,7 +9,7 @@ const clearToast = (timer, dispatch) => {
   clearTimeout(timer);
 };
 
-function Toast() {
+export default function Toast() {
   const message = useSelector(getToastMessage);
   const isShown = useSelector(getIsToastShown);
   const dispatch = useDispatch();
@@ -27,6 +27,3 @@ function Toast() {
     </div>
   );
 }
-
-export { Toast };
-export default Toast;

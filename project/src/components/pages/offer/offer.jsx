@@ -19,7 +19,7 @@ import { OfferType, CardType, MapClass, CLOSEST_OFFERS_COUNT, AppRoute, Favorite
 import { clearOfferData } from '../../../store/action';
 import { getCurrentOffer, getClosestOffers, getIsOfferLoaded, getIsClosestOffersLoaded, getIsError404 } from '../../../store/selectors';
 
-function Offer({id}) {
+export default function Offer({id}) {
   const currentOffer = useSelector(getCurrentOffer);
   const closestOffers = useSelector(getClosestOffers);
   const isOfferLoaded = useSelector(getIsOfferLoaded);
@@ -168,5 +168,3 @@ Offer.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-export { Offer };
-export default Offer;

@@ -18,7 +18,7 @@ export default function City({cityName, offers}) {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link to={AppRoute.ROOT} onClick={handleClick} className="locations__item-link">
+          <Link to={AppRoute.ROOT} onClick={handleClick} data-testid={'favotire-city-link'} className="locations__item-link">
             <span>{cityName}</span>
           </Link>
         </div>

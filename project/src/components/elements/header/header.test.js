@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+import { Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { createMemoryHistory } from 'history';
@@ -8,12 +9,18 @@ import { Header } from './header';
 
 const history = createMemoryHistory();
 const mockStore = configureStore();
+jest.mock('../toast/toast', () => ({
+  __esModule: true,
+  default() {
+    return <h1>This is mock toast</h1>;
+  },
+}));
 
 describe('Component Header', () => {
   it('should render correctly without authorization', () => {
     const storeFakeData = {
       AUTH: {status: 'NO_AUTH', userData: {}},
-      ERROR: {toast: {isToastShown: false}},
+      ERROR: {toast: {isShown: false}},
     };
 
     render(
@@ -33,7 +40,7 @@ describe('Component Header', () => {
         status: 'AUTH',
         userData: {},
       },
-      ERROR: {toast: {isToastShown: false}},
+      ERROR: {toast: {isShown: false}},
     };
 
     render(
@@ -44,7 +51,66 @@ describe('Component Header', () => {
       </Provider>,
     );
 
-    expect(screen.getByTestId('user-info')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')[0]).toBeInTheDocument();
     expect(screen.getByText('Sign out')).toBeInTheDocument();
+  });
+
+  it('should change logo class after redirect to /', () => {
+    const storeFakeData = {
+      AUTH: {
+        status: 'NO_AUTH',
+        userData: {},
+      },
+      ERROR: {toast: {isShown: false}},
+    };
+    history.push('/login');
+
+    const {container, rerender} = render(
+      <Provider store={mockStore(storeFakeData)}>
+        <Router history={history}>
+          <Switch>
+            <Route path={'/login'}>
+              <Header />
+            </Route>
+            <Route>
+              <Header />
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>,
+    );
+
+    const navLink = container.querySelector('.header__logo');
+    expect(navLink).not.toHaveClass('header__logo-link--active');
+    userEvent.click(navLink);
+    rerender(
+      <Provider store={mockStore(storeFakeData)}>
+        <Router history={history}>
+          <Header />
+        </Router>
+      </Provider>,
+    );
+    expect(container.querySelector('.header__logo-link--active')).toBeInTheDocument();
+  });
+
+  it('should show toast when shown flag is active', () => {
+    const storeFakeData = {
+      AUTH: {
+        status: 'NO_AUTH',
+        userData: {},
+      },
+      ERROR: {toast: {isShown: true}},
+    };
+    history.push('/login');
+
+    render(
+      <Provider store={mockStore(storeFakeData)}>
+        <Router history={history}>
+          <Header />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText('This is mock toast')).toBeInTheDocument();
   });
 });

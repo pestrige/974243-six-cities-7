@@ -10,6 +10,7 @@ export default function OfferLoading() {
         <section className="property container">
           <div className="property__empty">
             <ContentLoader
+              data-testid={'offer-preloader'}
               speed={2}
               width={790}
               height={700}
