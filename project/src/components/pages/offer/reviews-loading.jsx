@@ -1,5 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import { Preloader } from '../../../const';
+const { SIZE, SPEED } = Preloader;
 
 export default function ReviewLoading() {
   return (
@@ -10,9 +12,9 @@ export default function ReviewLoading() {
       <div className="reviews__list">
         <ContentLoader
           data-testid={'reviews-preloader'}
-          speed={2}
-          width={613}
-          height={130}
+          speed={SPEED}
+          width={SIZE.Reviews.WIDTH}
+          height={SIZE.Reviews.HEIGHT}
           viewBox="0 0 613 130"
           backgroundColor="#f3f3f3"
           foregroundColor="#ecebeb"

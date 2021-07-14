@@ -145,3 +145,22 @@ export const Marker = {
   URL: './img/pin.svg',
   ACTIVE_URL: './img/pin-active.svg',
 };
+
+export const Preloader = {
+  SPEED: 2,
+  SIZE: {
+    Card: {
+      WIDTH: 268,
+      HEIGHT: 342,
+    },
+    Offer: {
+      WIDTH: 790,
+      HEIGHT: 700,
+    },
+    Reviews: {
+      WIDTH: 613,
+      HEIGHT: 130,
+    },
+  },
+
+};

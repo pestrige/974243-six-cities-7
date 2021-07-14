@@ -1,6 +1,8 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 import Header from '../../elements/header/header';
+import { Preloader } from '../../../const';
+const { SIZE, SPEED } = Preloader;
 
 export default function OfferLoading() {
   return (
@@ -11,9 +13,9 @@ export default function OfferLoading() {
           <div className="property__empty">
             <ContentLoader
               data-testid={'offer-preloader'}
-              speed={2}
-              width={790}
-              height={700}
+              speed={SPEED}
+              width={SIZE.Offer.WIDTH}
+              height={SIZE.Offer.HEIGHT}
               viewBox="0 0 790 700"
               backgroundColor="#d6d6d6"
               foregroundColor="#ebebeb"

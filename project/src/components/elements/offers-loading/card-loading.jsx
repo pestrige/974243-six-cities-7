@@ -1,13 +1,15 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import { Preloader } from '../../../const';
+const { SIZE, SPEED } = Preloader;
 
 export default function CardLoading() {
   return (
     <ContentLoader
       data-testid={'card-loading'}
-      speed={2}
-      width={268}
-      height={342}
+      speed={SPEED}
+      width={SIZE.Card.WIDTH}
+      height={SIZE.Card.HEIGHT}
       viewBox="0 0 268 342"
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
