@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { AppRoute } from '../../../const';
 import { getIsAuth } from '../../../store/selectors';
 
-function PrivateRoute(props) {
+export default function PrivateRoute(props) {
   const history = useHistory();
   const isAuth = useSelector(getIsAuth);
   const {render, exact, path, isPrivate = true} = props;
@@ -33,6 +33,3 @@ PrivateRoute.propTypes = {
   path: PropTypes.string.isRequired,
   isPrivate: PropTypes.bool,
 };
-
-export { PrivateRoute };
-export default PrivateRoute;

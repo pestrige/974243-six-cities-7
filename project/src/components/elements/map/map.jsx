@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useMap } from '../../../hooks/useMap';
+import { useMap } from '../../../hooks/use-map';
 import { MapClass } from '../../../const';
 import offersProp from '../offers/offers.prop';
 import offerProp from '../card/card.prop';
 import cityProp from '../cities/city.prop';
 
-function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, city}) {
+export default function Map({offers, activeOffer = {}, type = MapClass.DEFAULT, city}) {
   const mapRef = useRef(null);
 
   useMap(mapRef, offers, activeOffer, city);
@@ -28,5 +28,3 @@ Map.propTypes = {
   type: PropTypes.string,
   city: cityProp,
 };
-
-export default Map;

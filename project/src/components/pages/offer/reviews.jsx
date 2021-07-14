@@ -9,7 +9,7 @@ import Form from './form';
 import { fetchReviews } from '../../../store/api-action';
 import { getIsAuth, getReviews, getIsReviewsLoaded } from '../../../store/selectors';
 
-function Reviews({id}) {
+export default function Reviews({id}) {
   const reviews = useSelector(getReviews);
   const isDataLoaded = useSelector(getIsReviewsLoaded);
   const isAuth = useSelector(getIsAuth);
@@ -39,6 +39,3 @@ function Reviews({id}) {
 Reviews.propTypes = {
   id: PropTypes.number.isRequired,
 };
-
-export { Reviews };
-export default Reviews;

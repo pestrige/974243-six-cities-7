@@ -28,7 +28,7 @@ const checkDisabled = (commentLength, rating, isSendingFlag) => !(
   !isSendingFlag
 );
 
-function Form({offerID}) {
+export default function Form({offerID}) {
   const form = useSelector(getFormData);
   const isSending = useSelector(getIsSending);
   const isToastShown = useSelector(getIsToastShown);
@@ -56,6 +56,7 @@ function Form({offerID}) {
       className={`reviews__form form ${isToastShown ? 'shake' : ''}`}
       action="#"
       method="post"
+      data-testid={'new-comment'}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -118,6 +119,3 @@ function Form({offerID}) {
 Form.propTypes = {
   offerID: PropTypes.number.isRequired,
 };
-
-export { Form };
-export default Form;
